@@ -28,6 +28,7 @@ test("dragging the panel divider resizes, collapses and restores its width", asy
   await page.goto("./#/learn/codex");
   const panel = page.locator("#learning-panel");
   const divider = page.getByRole("separator", { name: "Resize learning panel" });
+  expect((await panel.boundingBox())!.width).toBeCloseTo(300, 0);
   const bounds = await divider.boundingBox();
   await page.mouse.move(bounds!.x + bounds!.width / 2, bounds!.y + 200);
   await page.mouse.down();
@@ -35,7 +36,7 @@ test("dragging the panel divider resizes, collapses and restores its width", asy
   await page.mouse.up();
   expect((await panel.boundingBox())!.width).toBeCloseTo(330, 0);
   await page.mouse.down();
-  await page.mouse.move(180, bounds!.y + 200, { steps: 8 });
+  await page.mouse.move(160, bounds!.y + 200, { steps: 8 });
   await page.mouse.up();
   await expect(panel).toBeHidden();
   await page.getByRole("button", { name: "Expand learning panel" }).click();
@@ -52,9 +53,18 @@ test("dragging the panel divider resizes, collapses and restores its width", asy
   const wideBounds = await divider.boundingBox();
   await page.mouse.move(wideBounds!.x + wideBounds!.width / 2, wideBounds!.y + 200);
   await page.mouse.down();
-  await page.mouse.move(250, wideBounds!.y + 200, { steps: 8 });
+  await page.mouse.move(220, wideBounds!.y + 200, { steps: 8 });
   await page.mouse.up();
-  expect((await panel.boundingBox())!.width).toBeCloseTo(300, 0);
+  expect((await panel.boundingBox())!.width).toBeCloseTo(250, 0);
+  await divider.focus();
+  await divider.press("ArrowRight");
+  expect((await panel.boundingBox())!.width).toBeCloseTo(274, 0);
+  await divider.press("ArrowLeft");
+  expect((await panel.boundingBox())!.width).toBeCloseTo(250, 0);
+  await divider.press("ArrowLeft");
+  await expect(panel).toBeHidden();
+  await page.getByRole("button", { name: "Expand learning panel" }).click();
+  expect((await panel.boundingBox())!.width).toBeCloseTo(250, 0);
   expect(await panel.evaluate((element) => element.scrollWidth <= element.clientWidth + 1)).toBe(true);
   await mkdir(".impeccable/review", { recursive: true });
   await page.screenshot({ path: ".impeccable/review/resized-panel.png", fullPage: true });

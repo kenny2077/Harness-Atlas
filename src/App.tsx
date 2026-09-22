@@ -30,9 +30,10 @@ export default function App() {
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
   const [resizingPanel, setResizingPanel] = useState(false);
   const panelDrag = useRef<{ x: number; width: number } | null>(null);
+  const minPanelWidth = 250;
+  const collapsePanelWidth = 180;
   const maxPanelWidth = Math.min(600, viewportWidth * 0.55);
-  const defaultPanelWidth = viewportWidth <= 1100 ? 310 : Math.max(320, viewportWidth * 0.29);
-  const visiblePanelWidth = Math.min(maxPanelWidth, Math.max(300, panelWidth ?? defaultPanelWidth));
+  const visiblePanelWidth = Math.min(maxPanelWidth, Math.max(minPanelWidth, panelWidth ?? 300));
   useEffect(() => {
     const resize = () => setViewportWidth(window.innerWidth);
     window.addEventListener("resize", resize);
@@ -163,13 +164,13 @@ export default function App() {
                     const drag = panelDrag.current;
                     if (!drag) return;
                     const width = drag.width + event.clientX - drag.x;
-                    if (width < 200) {
+                    if (width < collapsePanelWidth) {
                       setPanelWidth(drag.width);
                       panelDrag.current = null;
                       setResizingPanel(false);
                       togglePanel();
                     } else {
-                      setPanelWidth(Math.min(maxPanelWidth, Math.max(300, width)));
+                      setPanelWidth(Math.min(maxPanelWidth, Math.max(minPanelWidth, width)));
                     }
                   }}
                   onPointerUp={() => {
@@ -188,11 +189,11 @@ export default function App() {
                   onKeyDown={(event) => {
                     if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
                     event.preventDefault();
-                    if (event.key === "Home" || (event.key === "ArrowLeft" && visiblePanelWidth <= 300)) {
+                    if (event.key === "Home" || (event.key === "ArrowLeft" && visiblePanelWidth <= minPanelWidth)) {
                       togglePanel();
                     } else {
                       const width = event.key === "End" ? maxPanelWidth : visiblePanelWidth + (event.key === "ArrowRight" ? 24 : -24);
-                      setPanelWidth(Math.min(maxPanelWidth, Math.max(300, width)));
+                      setPanelWidth(Math.min(maxPanelWidth, Math.max(minPanelWidth, width)));
                     }
                   }}
                 />

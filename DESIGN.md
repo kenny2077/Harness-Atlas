@@ -168,7 +168,7 @@ The learning pane uses compact headings so its steps and navigation controls fit
 
 ## Layout
 
-The learning workbench has a full-width header (72px) and a desktop reading/stage split starting near 29% / 71%. The reading column can be dragged from 300px to the smaller of 600px or 55vw, and collapses if dragged below 200px. The diagram toolbar holds an expanded-by-default architecture picker; its trigger hides or reveals the choices. Zoom controls stay outside the pannable world. The desktop learning frame fills the available viewport below the header, with a 740px minimum and 1100px maximum height.
+The learning workbench has a full-width header (72px) and a 300px default reading column. The column can be dragged from 250px to the smaller of 600px or 55vw, and collapses if dragged below 180px. The diagram toolbar holds an expanded-by-default architecture picker; its trigger hides or reveals the choices. Zoom controls stay outside the pannable world. The desktop learning frame fills the available viewport below the header, with a 740px minimum and 1100px maximum height.
 
 A faint 24px square grid describes the working canvas. The diagram world is 1000 × 795px before fit and zoom. When the stage itself is 760px wide or narrower, its world uses a 620px width and two-column node placement; this is independent of the page breakpoint.
 

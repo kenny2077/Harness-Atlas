@@ -11,3 +11,16 @@ Run `npm run typecheck`, `npm test`, `npm run test:e2e`, and `npm run build`. Te
 Do not commit `.research/`, credentials, personal configuration, generated previews or temporary screenshots. Do not bundle entire upstream repositories. Review licensing before adding excerpts or assets.
 
 Pull requests deploy only after merging to `main` and passing verification. Contributions to the Atlas's original work are provided under Apache-2.0.
+
+## Commit messages
+
+Use a short, imperative [Conventional Commits](https://www.conventionalcommits.org/) subject that says what changed:
+
+```text
+feat: add architecture picker keyboard support
+fix: load assets from the GitHub Pages base path
+docs: clarify the research snapshot process
+refactor: simplify diagram state handling
+```
+
+Use `feat` for behavior, `fix` for corrections, `docs` for documentation-only changes, and `refactor` for code restructuring without a behavior change. Keep factual context and verification in the pull request description when the subject alone is not enough.

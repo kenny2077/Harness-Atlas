@@ -8,7 +8,6 @@ describe("shareable explorer state", () => {
       harness: "codex" as const,
       chapter: "boundary",
       node: "sandbox",
-      overlay: "safety" as const,
       zoom: 140,
     };
     expect(parseHash(serializeState(state))).toEqual(state);
@@ -21,6 +20,7 @@ describe("shareable explorer state", () => {
   });
   it("recovers from unknown routes and invalid zoom", () => {
     expect(parseHash("#/wrong/bad?zoom=NaN&overlay=bad")).toEqual(defaults);
+    expect(parseHash("#/learn/codex?overlay=safety")).toEqual({ ...defaults, harness: "codex" });
     expect(parseHash("#/learn/ax?zoom=500").zoom).toBe(150);
     expect(parseHash("#/learn/ax?zoom=-50").zoom).toBe(60);
   });

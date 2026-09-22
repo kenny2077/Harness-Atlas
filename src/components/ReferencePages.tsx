@@ -301,7 +301,7 @@ export function SourcesPage({ state, onChange }: Props) {
             their code.
           </p>
           <a
-            href="https://github.com/kenny2077/agent-harness-atlas/tree/main/research"
+            href="https://github.com/kenny2077/Harness-Atlas/tree/main/research"
             target="_blank"
             rel="noreferrer"
           >

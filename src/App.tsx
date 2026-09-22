@@ -6,8 +6,10 @@ import {
   ChevronRight,
   GitBranch,
   Layers3,
+  PanelLeftClose,
+  PanelLeftOpen,
 } from "lucide-react";
-import { harnesses, getHarness, snapshotDate } from "./content";
+import { getHarness, snapshotDate } from "./content";
 import { parseHash, serializeState, defaults } from "./state";
 import type { ArchitectureNode, ExplorerState, ViewId } from "./content/types";
 import {
@@ -15,7 +17,6 @@ import {
   landscapeNodes,
 } from "./components/ArchitectureStage";
 import { Inspector } from "./components/Inspector";
-import { SourceLinks } from "./components/SourceLinks";
 import {
   ComparePage,
   EvolutionPage,
@@ -24,6 +25,31 @@ import {
 
 export default function App() {
   const [state, setState] = useState(() => parseHash(window.location.hash));
+  const [panelOpen, setPanelOpen] = useState(true);
+  const [panelWidth, setPanelWidth] = useState<number>();
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+  const [resizingPanel, setResizingPanel] = useState(false);
+  const panelDrag = useRef<{ x: number; width: number } | null>(null);
+  const maxPanelWidth = Math.min(600, viewportWidth * 0.55);
+  const defaultPanelWidth = viewportWidth <= 1100 ? 310 : Math.max(320, viewportWidth * 0.29);
+  const visiblePanelWidth = Math.min(maxPanelWidth, Math.max(300, panelWidth ?? defaultPanelWidth));
+  useEffect(() => {
+    const resize = () => setViewportWidth(window.innerWidth);
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, []);
+  const panelToggle = useRef<HTMLButtonElement>(null);
+  const restoreToggleFocus = useRef(false);
+  function togglePanel() {
+    restoreToggleFocus.current = true;
+    setPanelOpen((open) => !open);
+  }
+  useEffect(() => {
+    if (restoreToggleFocus.current) {
+      panelToggle.current?.focus();
+      restoreToggleFocus.current = false;
+    }
+  }, [panelOpen]);
   const fontProbe = useRef<HTMLSpanElement>(null);
   const [largeText, setLargeText] = useState(false);
   useEffect(() => {
@@ -65,8 +91,8 @@ export default function App() {
 
   return (
     <div
-      className={`app ${largeText ? "large-text" : ""}`}
-      style={{ "--accent": color } as CSSProperties}
+      className={`app ${largeText ? "large-text" : ""} ${resizingPanel ? "resizing-panel" : ""}`}
+      style={{ "--accent": color, "--panel-width": `${visiblePanelWidth}px` } as CSSProperties}
     >
       <span ref={fontProbe} className="font-probe" aria-hidden="true" />
       <a
@@ -100,7 +126,7 @@ export default function App() {
         <span className="snapshot">Snapshot {snapshotDate}</span>
         <a
           className="repo-link"
-          href="https://github.com/kenny2077/agent-harness-atlas"
+          href="https://github.com/kenny2077/Harness-Atlas"
           target="_blank"
           rel="noreferrer"
           aria-label="Open the Atlas source repository"
@@ -111,36 +137,86 @@ export default function App() {
       <main id="main" tabIndex={-1}>
         {state.page === "learn" ? (
           <>
-            <div className="harness-bar">
-              <a
-                className={state.harness === "landscape" ? "current" : ""}
-                href="#/learn/landscape"
-              >
-                <Layers3 size={16} />
-                Landscape
-              </a>
-              <span className="bar-divider" />
-              {harnesses.map((h) => (
-                <button
-                  key={h.id}
-                  aria-pressed={state.harness === h.id}
-                  onClick={() => openLab(h.id)}
-                  style={{ "--project": h.color } as CSSProperties}
-                >
-                  <span className="project-mark" />
-                  {h.shortName}
-                  <small>{h.id === "ax" ? "Orchestrator" : ""}</small>
-                </button>
-              ))}
-            </div>
-            <div className="lab-layout">
-              <aside className="lesson-pane">
+            <div className={`lab-layout${panelOpen ? "" : " is-collapsed"}`}>
+              {panelOpen && (
+                <div
+                  className="panel-divider"
+                  role="separator"
+                  tabIndex={0}
+                  aria-label="Resize learning panel"
+                  aria-orientation="vertical"
+                  aria-controls="learning-panel"
+                  aria-valuemin={0}
+                  aria-valuemax={Math.round(maxPanelWidth)}
+                  aria-valuenow={Math.round(visiblePanelWidth)}
+                  aria-valuetext={`${Math.round(visiblePanelWidth)} pixels wide`}
+                  title="Drag to resize; drag left to collapse"
+                  onPointerDown={(event) => {
+                    if (event.button !== 0) return;
+                    event.preventDefault();
+                    event.currentTarget.focus();
+                    panelDrag.current = { x: event.clientX, width: visiblePanelWidth };
+                    event.currentTarget.setPointerCapture(event.pointerId);
+                    setResizingPanel(true);
+                  }}
+                  onPointerMove={(event) => {
+                    const drag = panelDrag.current;
+                    if (!drag) return;
+                    const width = drag.width + event.clientX - drag.x;
+                    if (width < 200) {
+                      setPanelWidth(drag.width);
+                      panelDrag.current = null;
+                      setResizingPanel(false);
+                      togglePanel();
+                    } else {
+                      setPanelWidth(Math.min(maxPanelWidth, Math.max(300, width)));
+                    }
+                  }}
+                  onPointerUp={() => {
+                    panelDrag.current = null;
+                    setResizingPanel(false);
+                  }}
+                  onPointerCancel={() => {
+                    if (panelDrag.current) setPanelWidth(panelDrag.current.width);
+                    panelDrag.current = null;
+                    setResizingPanel(false);
+                  }}
+                  onLostPointerCapture={() => {
+                    panelDrag.current = null;
+                    setResizingPanel(false);
+                  }}
+                  onKeyDown={(event) => {
+                    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+                    event.preventDefault();
+                    if (event.key === "Home" || (event.key === "ArrowLeft" && visiblePanelWidth <= 300)) {
+                      togglePanel();
+                    } else {
+                      const width = event.key === "End" ? maxPanelWidth : visiblePanelWidth + (event.key === "ArrowRight" ? 24 : -24);
+                      setPanelWidth(Math.min(maxPanelWidth, Math.max(300, width)));
+                    }
+                  }}
+                />
+              )}
+              <aside className="lesson-pane" id="learning-panel" hidden={!panelOpen}>
                 <div className="lesson-top">
                   <div className="breadcrumb">
                     <BookOpen size={15} />
                     Learn
                     <ChevronRight size={13} />
                     <span>{harness?.shortName || "Landscape"}</span>
+                    {panelOpen && (
+                      <button
+                        ref={panelToggle}
+                        className="lesson-toggle"
+                        aria-controls="learning-panel"
+                        aria-expanded={true}
+                        aria-label="Collapse learning panel"
+                        title="Collapse learning panel"
+                        onClick={togglePanel}
+                      >
+                        <PanelLeftClose size={20} />
+                      </button>
+                    )}
                   </div>
                   <h1>
                     {harness ? (
@@ -153,11 +229,6 @@ export default function App() {
                       </>
                     )}
                   </h1>
-                  <p className="lesson-intro">
-                    {harness
-                      ? chapter!.body
-                      : "Three harnesses run the coding loop. AX runs the workloads around them."}
-                  </p>
                   {harness ? (
                     <ol className="chapter-list">
                       {harness.chapters.map((c, i) => (
@@ -200,26 +271,6 @@ export default function App() {
                         </div>
                       </li>
                     </ol>
-                  )}
-                </div>
-                <div className="lesson-detail" aria-live="polite">
-                  <h2>
-                    {harness ? "The idea to take away" : "Built from source"}
-                  </h2>
-                  <p>
-                    {harness
-                      ? chapter!.takeaway
-                      : "Every lab connects the explanation to a pinned revision. Architectural fit is an inference; this is not a performance ranking."}
-                  </p>
-                  <SourceLinks
-                    ids={chapter?.sourceIds || ["a-design"]}
-                    compact
-                  />
-                  {harness?.id === "ax" && (
-                    <p className="small-note">
-                      Current architecture: v0.3. Earlier built-in harness
-                      features are historical.
-                    </p>
                   )}
                 </div>
                 <div className="lesson-controls">
@@ -270,11 +321,25 @@ export default function App() {
                 </div>
               </aside>
               <div className="stage-wrap">
+                {!panelOpen && (
+                  <button
+                    ref={panelToggle}
+                    className="lesson-toggle lesson-reopen"
+                    aria-controls="learning-panel"
+                    aria-expanded={false}
+                    aria-label="Expand learning panel"
+                    title="Expand learning panel"
+                    onClick={togglePanel}
+                  >
+                    <PanelLeftOpen size={20} />
+                  </button>
+                )}
                 <ArchitectureStage
                   harness={harness}
                   state={state}
                   focus={chapter?.focus || []}
                   onChange={change}
+                  onOpenLab={openLab}
                   onSelect={(node) => change({ node: node.id })}
                 />
                 {selected && (
@@ -291,45 +356,6 @@ export default function App() {
                 )}
               </div>
             </div>
-            {harness && (
-              <section
-                className="harness-notes"
-                aria-label={`${harness.name} trade-offs`}
-              >
-                <div>
-                  <h2>Where {harness.shortName} fits</h2>
-                  <p className="small-note">
-                    Architectural judgments, not benchmark results.
-                  </p>
-                  {harness.taskFit.map((f) => (
-                    <div key={f.text}>
-                      <p>{f.text}</p>
-                      <SourceLinks ids={f.sources} compact />
-                    </div>
-                  ))}
-                </div>
-                <div>
-                  <h2>Design advantages</h2>
-                  {harness.advantages.map((f) => (
-                    <div key={f.text}>
-                      <p>{f.text}</p>
-                      <SourceLinks ids={f.sources} compact />
-                    </div>
-                  ))}
-                </div>
-                <div>
-                  <h2>Costs and constraints</h2>
-                  {harness.tradeoffs.map((f) => (
-                    <div key={f.text}>
-                      <p>{f.text}</p>
-                      <SourceLinks ids={f.sources} compact />
-                    </div>
-                  ))}
-                  <p>{harness.maturity.text}</p>
-                  <SourceLinks ids={harness.maturity.sources} compact />
-                </div>
-              </section>
-            )}
           </>
         ) : state.page === "compare" ? (
           <ComparePage state={state} onChange={change} />

@@ -6,7 +6,7 @@
 web
 
 ## Stack
-React, Vite, TypeScript; a static GitHub Pages site at `/agent-harness-atlas/`.
+React, Vite, TypeScript; a static GitHub Pages site at `/Harness-Atlas/`.
 
 ## Users
 College computer science students studying agent runtime architecture and software design.
@@ -21,7 +21,7 @@ Students can move from a system overview to individual components, compare imple
 Desktop learning and exploration, with responsive mobile reading. English initial release. No account, API keys, or live agent execution required.
 
 ## Capabilities and Constraints
-Guided labs, free component exploration, safety overlay, comparison matrix, feature evolution timeline, searchable source index, and glossary. Hash routes preserve deep links on GitHub Pages. Snapshot date: 2026-09-21. Distinguish implemented, documented, historical, and inferred behavior. Never infer invention or copying from chronology. No four-way benchmark claims.
+Guided labs, free component exploration, an architecture picker, comparison matrix with safety dimensions, feature evolution timeline, searchable source index, and glossary. Hash routes preserve deep links on GitHub Pages. Snapshot date: 2026-09-21. Distinguish implemented, documented, historical, and inferred behavior. Never infer invention or copying from chronology. No four-way benchmark claims.
 
 ## Brand Commitments
 Name: Agent Harness Atlas. Direction: Exploded Systems Workbench. Reference: https://bbycroft.net/llm — synchronized narration and manipulable system view. Lab Paper #F6F8FB; Carbon #17212B; ZCode Orange #E56B36; DeepSeek Violet #6D5BD0; Codex Blue #2F62D6; AX Teal #138A7E. Self-hosted Recursive variable typography. Accessible HTML/SVG diagrams, not WebGL. Three compositions require user selection before main interface implementation.
@@ -40,4 +40,4 @@ Primary-source reports are recorded under `research/`. Exact upstream revisions 
 Semantic keyboard-operable nodes, visible focus, reduced motion, mobile support, readable zoomed text, and status cues beyond color.
 
 ## Publication
-Public repository: kenny2077/agent-harness-atlas. GitHub Pages deployment. Apache-2.0 license. Source checkouts are local research inputs and excluded from publication.
+Public repository: kenny2077/Harness-Atlas. GitHub Pages deployment. Apache-2.0 license. Source checkouts are local research inputs and excluded from publication.

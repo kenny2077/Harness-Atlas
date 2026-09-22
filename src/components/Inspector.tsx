@@ -26,7 +26,7 @@ export function Inspector({
     if (!modal) return;
     const background = [
       ...document.querySelectorAll<HTMLElement>(
-        ".site-header,.harness-bar,.lesson-pane,.stage,.harness-notes,.site-footer",
+        ".site-header,.lesson-pane,.stage,.site-footer",
       ),
     ];
     const previous = background.map((element) => element.inert);

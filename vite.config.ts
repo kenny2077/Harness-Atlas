@@ -2,7 +2,7 @@ import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  base: "/agent-harness-atlas/",
+  base: "/Harness-Atlas/",
   plugins: [react()],
   test: {
     environment: "jsdom",

@@ -3,6 +3,7 @@ import {
   Box,
   Braces,
   Cable,
+  ChevronDown,
   Database,
   Focus,
   GitBranch,
@@ -20,8 +21,21 @@ import type {
   ArchitectureEdge,
   Harness,
   ExplorerState,
+  HarnessId,
+  ViewId,
 } from "../content/types";
 import { harnesses } from "../content";
+import zcodeIcon from "../assets/brands/zcode.png";
+import deepseekIcon from "../assets/brands/deepseek.svg";
+import openaiIcon from "../assets/brands/openai.png";
+import axIcon from "../assets/brands/ax.svg";
+
+const brandIcons: Record<HarnessId, string> = {
+  zcode: zcodeIcon,
+  deepseek: deepseekIcon,
+  codex: openaiIcon,
+  ax: axIcon,
+};
 
 const iconMap = {
   client: TerminalSquare,
@@ -132,15 +146,18 @@ export function ArchitectureStage({
   state,
   focus,
   onChange,
+  onOpenLab,
   onSelect,
 }: {
   harness?: Harness;
   state: ExplorerState;
   focus: string[];
   onChange: (patch: Partial<ExplorerState>) => void;
+  onOpenLab: (id: ViewId) => void;
   onSelect: (node: ArchitectureNode) => void;
 }) {
   const viewport = useRef<HTMLDivElement>(null);
+  const [choicesOpen, setChoicesOpen] = useState(true);
   const [size, setSize] = useState({ width: 1000, height: 800 });
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const drag = useRef<{ x: number; y: number; px: number; py: number } | null>(
@@ -165,7 +182,6 @@ export function ArchitectureStage({
     : rawNodes;
   const edges = harness?.edges || landscapeEdges;
   const isLandscape = !harness;
-  const safety = state.overlay === "safety";
   const color = harness?.color || "#138A7E";
   const worldWidth = narrow ? 620 : 1000;
   const scale =
@@ -205,43 +221,46 @@ export function ArchitectureStage({
 
   return (
     <section
-      className={`stage ${narrow ? "narrow-stage" : ""} ${isLandscape ? "landscape-stage" : ""} ${safety ? "safety-stage" : ""}`}
+      className={`stage ${narrow ? "narrow-stage" : ""} ${isLandscape ? "landscape-stage" : ""}`}
       aria-label={`${harness?.name || "Landscape"} architecture`}
       style={{ "--accent": color } as CSSProperties}
     >
       <div className="stage-toolbar">
-        <div className="segmented" aria-label="Diagram overlay">
+        <div className="stage-toolbar-heading">
           <button
-            aria-pressed={!safety}
-            onClick={() => onChange({ overlay: "architecture" })}
+            className="architecture-trigger"
+            aria-controls="architecture-choices"
+            aria-expanded={choicesOpen}
+            aria-label={choicesOpen ? "Collapse architecture choices" : "Expand architecture choices"}
+            onClick={() => setChoicesOpen((open) => !open)}
           >
-            <Layers3 size={15} />
+            <Layers3 size={17} />
             Architecture
+            <ChevronDown size={16} className={choicesOpen ? "" : "closed"} />
           </button>
-          <button
-            aria-pressed={safety}
-            onClick={() => onChange({ overlay: "safety" })}
-          >
-            <ShieldCheck size={15} />
-            Safety
-          </button>
+          <span className="stage-kind">
+            {isLandscape ? "System landscape" : harness.category}
+          </span>
         </div>
-        <span className="stage-kind">
-          {isLandscape ? "System landscape" : harness.category}
-        </span>
+        {choicesOpen && (
+          <div className="architecture-choices" id="architecture-choices" aria-label="Architecture choices">
+            <button aria-pressed={isLandscape} onClick={() => onOpenLab("landscape")}>
+              <Layers3 size={19} />
+              Landscape
+            </button>
+            {harnesses.map((item) => (
+              <button
+                key={item.id}
+                aria-pressed={state.harness === item.id}
+                onClick={() => onOpenLab(item.id)}
+              >
+                <img src={brandIcons[item.id]} alt="" width="22" height="22" />
+                {item.shortName}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
-      {safety && (
-        <div className="safety-key">
-          <span>
-            <ShieldCheck size={15} />
-            Policy: may it run?
-          </span>
-          <span>
-            <Box size={15} />
-            Containment: where can it act?
-          </span>
-        </div>
-      )}
       <div
         ref={viewport}
         className="diagram-viewport"
@@ -408,7 +427,7 @@ export function ArchitectureStage({
             return (
               <button
                 key={`${state.harness}-${n.id}`}
-                className={`graph-node node-${n.kind} ${active ? "selected" : ""} ${focused ? "chapter-focus" : ""} ${safety && !["policy", "boundary"].includes(n.kind) ? "safety-muted" : ""}`}
+                className={`graph-node node-${n.kind} ${active ? "selected" : ""} ${focused ? "chapter-focus" : ""}`}
                 style={
                   {
                     left: n.x,
@@ -424,7 +443,11 @@ export function ArchitectureStage({
                   if (moveFocus(i, event.key)) event.preventDefault();
                 }}
               >
-                <Icon size={27} strokeWidth={1.7} aria-hidden="true" />
+                {n.harness && (n.id === n.harness || n.id === "ax-control") ? (
+                  <img src={brandIcons[n.harness]} alt="" width="27" height="27" />
+                ) : (
+                  <Icon size={27} strokeWidth={1.7} aria-hidden="true" />
+                )}
                 <span>
                   <strong>{n.label}</strong>
                   <small>{n.subtitle}</small>

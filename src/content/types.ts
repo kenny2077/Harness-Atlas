@@ -110,7 +110,6 @@ export interface ExplorerState {
   harness: ViewId;
   chapter: string;
   node: string;
-  overlay: "architecture" | "safety";
   zoom: number;
   filter: string;
 }

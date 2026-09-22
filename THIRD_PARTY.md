@@ -13,6 +13,7 @@ The Atlas links to pinned source revisions and includes two short annotated code
 
 ## Bundled interface materials
 
+- Project identifiers in the architecture picker: ZCode app icon from the [ZCode source](https://github.com/zai-org/ZCode/blob/872ad960de7ec172591f7e1952f7849229f94521/public/icon_512%402x.png), DeepSeek Harness favicon from its [website source](https://github.com/deepseek-ai/deepseek-harness/blob/ddefc45fbc7f8e46dd73185e68295696d1297887/website/public/favicon.svg), and AX axolotl from the [AX source](https://github.com/google/ax/blob/d8ed0fe38bceb7842d3c47817d53d16ccdfcb601/assets/axolotl.svg). ZCode and OpenAI images are resized for the selector. The Codex choice uses [OpenAI's official GitHub avatar](https://github.com/openai.png), retrieved 2026-09-22; it is OpenAI's mark, not a separate Codex logo. These marks identify the subjects of comparison and imply no endorsement.
 - Recursive variable font, Arrow Type: SIL Open Font License 1.1. Self-hosted through `@fontsource-variable/recursive`; full license in `public/licenses/recursive.txt`.
 - Lucide icons: ISC, with Feather-derived portions under MIT. Full package license in `public/licenses/lucide.txt`.
 - React and React DOM: MIT. License in `public/licenses/react.txt`.

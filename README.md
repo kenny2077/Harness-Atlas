@@ -4,7 +4,7 @@
 
 [Explore the Atlas](https://kenny2077.github.io/Harness-Atlas/) · [Compare the systems](https://kenny2077.github.io/Harness-Atlas/#/compare) · [Browse the source index](https://kenny2077.github.io/Harness-Atlas/#/sources)
 
-![The Atlas workbench showing the Codex tools and approval chapter beside its interactive architecture diagram.](docs/assets/workbench.png)
+![The Atlas workbench showing the Codex tools and approval chapter beside its interactive architecture diagram.](docs/assets/workbench-tools-approval.png)
 
 ## What you can explore
 

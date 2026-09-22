@@ -1,0 +1,466 @@
+[
+  {
+    "id": "z-overview",
+    "harness": "zcode",
+    "title": "Product surfaces and repository map",
+    "path": "README.en.md",
+    "evidence": "documented",
+    "repository": "zai-org/ZCode",
+    "commit": "872ad960de7ec172591f7e1952f7849229f94521"
+  },
+  {
+    "id": "z-turn",
+    "harness": "zcode",
+    "title": "Regular turn loop",
+    "path": "apps/zcode-cli/packages/core/src/runtime/methods/turn-loop.ts",
+    "evidence": "implemented",
+    "lineAnchor": "L43-L219",
+    "repository": "zai-org/ZCode",
+    "commit": "872ad960de7ec172591f7e1952f7849229f94521"
+  },
+  {
+    "id": "z-plugin",
+    "harness": "zcode",
+    "title": "Plugin manifest contract",
+    "path": "apps/zcode-cli/packages/contracts/src/plugins/index.ts",
+    "evidence": "implemented",
+    "lineAnchor": "L141-L161",
+    "repository": "zai-org/ZCode",
+    "commit": "872ad960de7ec172591f7e1952f7849229f94521"
+  },
+  {
+    "id": "z-safety",
+    "harness": "zcode",
+    "title": "Execution permissions and product boundaries",
+    "path": "NOTICE.md",
+    "evidence": "documented",
+    "repository": "zai-org/ZCode",
+    "commit": "872ad960de7ec172591f7e1952f7849229f94521"
+  },
+  {
+    "id": "z-hooks",
+    "harness": "zcode",
+    "title": "Hook execution",
+    "path": "apps/zcode-cli/packages/core/src/hooks/runner.ts",
+    "evidence": "implemented",
+    "repository": "zai-org/ZCode",
+    "commit": "872ad960de7ec172591f7e1952f7849229f94521"
+  },
+  {
+    "id": "d-architecture",
+    "harness": "deepseek",
+    "title": "Plugin architecture and turn flow",
+    "path": "docs/architecture.md",
+    "evidence": "documented",
+    "repository": "deepseek-ai/deepseek-harness",
+    "commit": "ddefc45fbc7f8e46dd73185e68295696d1297887"
+  },
+  {
+    "id": "d-cordis",
+    "harness": "deepseek",
+    "title": "Cordis service and event composition",
+    "path": "docs/cordis-primer.md",
+    "evidence": "documented",
+    "repository": "deepseek-ai/deepseek-harness",
+    "commit": "ddefc45fbc7f8e46dd73185e68295696d1297887"
+  },
+  {
+    "id": "d-bundles",
+    "harness": "deepseek",
+    "title": "Profiles and bundles",
+    "path": "packages/bundle/README.md",
+    "evidence": "documented",
+    "repository": "deepseek-ai/deepseek-harness",
+    "commit": "ddefc45fbc7f8e46dd73185e68295696d1297887"
+  },
+  {
+    "id": "d-loop",
+    "harness": "deepseek",
+    "title": "Agent loop implementation guide",
+    "path": "packages/core/agent-loop/README.md",
+    "evidence": "documented",
+    "repository": "deepseek-ai/deepseek-harness",
+    "commit": "ddefc45fbc7f8e46dd73185e68295696d1297887"
+  },
+  {
+    "id": "d-sessions",
+    "harness": "deepseek",
+    "title": "Durable session events",
+    "path": "packages/session/README.md",
+    "evidence": "documented",
+    "repository": "deepseek-ai/deepseek-harness",
+    "commit": "ddefc45fbc7f8e46dd73185e68295696d1297887"
+  },
+  {
+    "id": "d-sandbox",
+    "harness": "deepseek",
+    "title": "Sandbox backends",
+    "path": "packages/sandbox/README.md",
+    "evidence": "documented",
+    "repository": "deepseek-ai/deepseek-harness",
+    "commit": "ddefc45fbc7f8e46dd73185e68295696d1297887"
+  },
+  {
+    "id": "d-hooks",
+    "harness": "deepseek",
+    "title": "Hook compatibility bridges",
+    "path": "packages/hooks/README.md",
+    "evidence": "documented",
+    "repository": "deepseek-ai/deepseek-harness",
+    "commit": "ddefc45fbc7f8e46dd73185e68295696d1297887"
+  },
+  {
+    "id": "d-bridge",
+    "harness": "deepseek",
+    "title": "Codex hook bridge and limits",
+    "path": "packages/hooks/hooks-codex/README.md",
+    "evidence": "documented",
+    "repository": "deepseek-ai/deepseek-harness",
+    "commit": "ddefc45fbc7f8e46dd73185e68295696d1297887"
+  },
+  {
+    "id": "d-plugin",
+    "harness": "deepseek",
+    "title": "External plugin management",
+    "path": "packages/boot/plugin-manager/README.md",
+    "evidence": "documented",
+    "repository": "deepseek-ai/deepseek-harness",
+    "commit": "ddefc45fbc7f8e46dd73185e68295696d1297887"
+  },
+  {
+    "id": "d-safety",
+    "harness": "deepseek",
+    "title": "Developer preview safety notice",
+    "path": "SAFETY.md",
+    "evidence": "documented",
+    "repository": "deepseek-ai/deepseek-harness",
+    "commit": "ddefc45fbc7f8e46dd73185e68295696d1297887"
+  },
+  {
+    "id": "d-clients",
+    "harness": "deepseek",
+    "title": "Browser client composition",
+    "path": "packages/client/README.md",
+    "evidence": "documented",
+    "repository": "deepseek-ai/deepseek-harness",
+    "commit": "ddefc45fbc7f8e46dd73185e68295696d1297887"
+  },
+  {
+    "id": "c-turn",
+    "harness": "codex",
+    "title": "Rust session turn loop",
+    "path": "codex-rs/core/src/session/turn.rs",
+    "evidence": "implemented",
+    "lineAnchor": "L150-L178",
+    "repository": "openai/codex",
+    "commit": "62ea6d41e85d0c75181f2794d0f2dc40e55fce3c"
+  },
+  {
+    "id": "c-sandbox",
+    "harness": "codex",
+    "title": "Linux execution boundary",
+    "path": "codex-rs/linux-sandbox/README.md",
+    "evidence": "documented",
+    "lineAnchor": "L24-L92",
+    "repository": "openai/codex",
+    "commit": "62ea6d41e85d0c75181f2794d0f2dc40e55fce3c"
+  },
+  {
+    "id": "c-hooks",
+    "harness": "codex",
+    "title": "Hook lifecycle events",
+    "path": "codex-rs/hooks/src/lib.rs",
+    "evidence": "implemented",
+    "lineAnchor": "L22-L53",
+    "repository": "openai/codex",
+    "commit": "62ea6d41e85d0c75181f2794d0f2dc40e55fce3c"
+  },
+  {
+    "id": "c-overview",
+    "harness": "codex",
+    "title": "Local CLI and client entrypoints",
+    "path": "README.md",
+    "evidence": "documented",
+    "repository": "openai/codex",
+    "commit": "62ea6d41e85d0c75181f2794d0f2dc40e55fce3c"
+  },
+  {
+    "id": "c-server",
+    "harness": "codex",
+    "title": "App-server protocol",
+    "path": "codex-rs/app-server/README.md",
+    "evidence": "documented",
+    "repository": "openai/codex",
+    "commit": "62ea6d41e85d0c75181f2794d0f2dc40e55fce3c"
+  },
+  {
+    "id": "c-config",
+    "harness": "codex",
+    "title": "Layered configuration",
+    "path": "docs/config.md",
+    "evidence": "documented",
+    "repository": "openai/codex",
+    "commit": "62ea6d41e85d0c75181f2794d0f2dc40e55fce3c"
+  },
+  {
+    "id": "a-design",
+    "harness": "ax",
+    "title": "Control plane architecture",
+    "path": "DESIGN.md",
+    "evidence": "documented",
+    "repository": "google/ax",
+    "commit": "d8ed0fe38bceb7842d3c47817d53d16ccdfcb601"
+  },
+  {
+    "id": "a-overview",
+    "harness": "ax",
+    "title": "AX resources and prerequisites",
+    "path": "README.md",
+    "evidence": "documented",
+    "repository": "google/ax",
+    "commit": "d8ed0fe38bceb7842d3c47817d53d16ccdfcb601"
+  },
+  {
+    "id": "a-schema",
+    "harness": "ax",
+    "title": "Public resource schema",
+    "path": "pkg/apis/v1alpha1/ax.proto",
+    "evidence": "implemented",
+    "repository": "google/ax",
+    "commit": "d8ed0fe38bceb7842d3c47817d53d16ccdfcb601"
+  },
+  {
+    "id": "a-worker",
+    "harness": "ax",
+    "title": "Redis event consumer",
+    "path": "internal/controller/worker.go",
+    "evidence": "implemented",
+    "repository": "google/ax",
+    "commit": "d8ed0fe38bceb7842d3c47817d53d16ccdfcb601"
+  },
+  {
+    "id": "a-reconcile",
+    "harness": "ax",
+    "title": "Task reconciliation",
+    "path": "internal/controller/reconciler.go",
+    "evidence": "implemented",
+    "repository": "google/ax",
+    "commit": "d8ed0fe38bceb7842d3c47817d53d16ccdfcb601"
+  },
+  {
+    "id": "a-runner",
+    "harness": "ax",
+    "title": "Runner process lifecycle",
+    "path": "runner/runner.go",
+    "evidence": "implemented",
+    "repository": "google/ax",
+    "commit": "d8ed0fe38bceb7842d3c47817d53d16ccdfcb601"
+  },
+  {
+    "id": "a-custom",
+    "harness": "ax",
+    "title": "Custom runner contract",
+    "path": "docs/runner.md",
+    "evidence": "documented",
+    "repository": "google/ax",
+    "commit": "d8ed0fe38bceb7842d3c47817d53d16ccdfcb601"
+  },
+  {
+    "id": "a-workspace",
+    "harness": "ax",
+    "title": "Workspace initialization implementation",
+    "path": "internal/workspace/setup.go",
+    "evidence": "implemented",
+    "repository": "google/ax",
+    "commit": "d8ed0fe38bceb7842d3c47817d53d16ccdfcb601"
+  },
+  {
+    "id": "a-sandbox",
+    "harness": "ax",
+    "title": "Task sandbox and guest services",
+    "path": "docs/sandbox.md",
+    "evidence": "documented",
+    "repository": "google/ax",
+    "commit": "d8ed0fe38bceb7842d3c47817d53d16ccdfcb601"
+  },
+  {
+    "id": "c-launch",
+    "harness": "codex",
+    "title": "Codex becomes public",
+    "path": "",
+    "evidence": "historical",
+    "kind": "commit",
+    "repository": "openai/codex",
+    "commit": "59a180ddec4adaf9760972cdb1eb89f06a81be8b"
+  },
+  {
+    "id": "c-linux",
+    "harness": "codex",
+    "title": "A Linux sandbox boundary",
+    "path": "",
+    "evidence": "historical",
+    "kind": "commit",
+    "repository": "openai/codex",
+    "commit": "89ef4efdcf033a3b0085328be5d144a292e5d50d"
+  },
+  {
+    "id": "c-sdk",
+    "harness": "codex",
+    "title": "A TypeScript SDK",
+    "path": "",
+    "evidence": "historical",
+    "kind": "commit",
+    "repository": "openai/codex",
+    "commit": "adbc38a97871dcb472cccf5a349e0c3b0f11db13"
+  },
+  {
+    "id": "c-agents",
+    "harness": "codex",
+    "title": "An agent controller",
+    "path": "",
+    "evidence": "historical",
+    "kind": "commit",
+    "repository": "openai/codex",
+    "commit": "1dd1355df3b4d33fe84de77b8a3efba1ce940d92"
+  },
+  {
+    "id": "c-plan",
+    "harness": "codex",
+    "title": "Plan mode in the TUI",
+    "path": "",
+    "evidence": "historical",
+    "kind": "commit",
+    "repository": "openai/codex",
+    "commit": "ec4a2d07e411d11f4de13b4e09aa7386c914df6d"
+  },
+  {
+    "id": "c-skills",
+    "harness": "codex",
+    "title": "Skill loading",
+    "path": "",
+    "evidence": "historical",
+    "kind": "commit",
+    "repository": "openai/codex",
+    "commit": "39a6a84097ec4bdf180f42e5690f71159faa5670"
+  },
+  {
+    "id": "c-hook-event",
+    "harness": "codex",
+    "title": "Lifecycle hooks",
+    "path": "",
+    "evidence": "historical",
+    "kind": "commit",
+    "repository": "openai/codex",
+    "commit": "3b54fd733601cbc8bfc789cbcf82f7bd9dfa833b"
+  },
+  {
+    "id": "a-approval",
+    "harness": "ax",
+    "title": "Historical human approval",
+    "path": "",
+    "evidence": "historical",
+    "kind": "commit",
+    "repository": "google/ax",
+    "commit": "9c5a3d5bbe6eef2da0dc61c3ff36bf227caa48ca"
+  },
+  {
+    "id": "c-plugins",
+    "harness": "codex",
+    "title": "Plugin loading",
+    "path": "",
+    "evidence": "historical",
+    "kind": "commit",
+    "repository": "openai/codex",
+    "commit": "752402c4fe4cafec13b7f58e1c987230389df8af"
+  },
+  {
+    "id": "d-start",
+    "harness": "deepseek",
+    "title": "Available history starts",
+    "path": "",
+    "evidence": "historical",
+    "kind": "commit",
+    "repository": "deepseek-ai/deepseek-harness",
+    "commit": "b67e81ac97647270b3002d78532baf3a5b68cbc3"
+  },
+  {
+    "id": "d-subagents",
+    "harness": "deepseek",
+    "title": "A subagent capability seam",
+    "path": "",
+    "evidence": "historical",
+    "kind": "commit",
+    "repository": "deepseek-ai/deepseek-harness",
+    "commit": "1a81f2cccdd49df5c5a25e208b61c8681d8207d5"
+  },
+  {
+    "id": "d-compat",
+    "harness": "deepseek",
+    "title": "Codex and Claude hook compatibility",
+    "path": "",
+    "evidence": "historical",
+    "kind": "commit",
+    "repository": "deepseek-ai/deepseek-harness",
+    "commit": "65165b5d542e6ff987e4d919d7f5d2f1fcaeaa2b"
+  },
+  {
+    "id": "d-mcp",
+    "harness": "deepseek",
+    "title": "MCP client",
+    "path": "",
+    "evidence": "historical",
+    "kind": "commit",
+    "repository": "deepseek-ai/deepseek-harness",
+    "commit": "1fbe7c39d4cf934ecb5315cfa51eddb390340d30"
+  },
+  {
+    "id": "d-skill-event",
+    "harness": "deepseek",
+    "title": "Skill catalogs",
+    "path": "",
+    "evidence": "historical",
+    "kind": "commit",
+    "repository": "deepseek-ai/deepseek-harness",
+    "commit": "6292d522362406d46ba5f74d7c0b3631dd6c0047"
+  },
+  {
+    "id": "d-codex-provider",
+    "harness": "deepseek",
+    "title": "Codex as a subagent provider",
+    "path": "",
+    "evidence": "historical",
+    "kind": "commit",
+    "repository": "deepseek-ai/deepseek-harness",
+    "commit": "1daa35b6e3a8fca62b9e42abed6a0d8cfc6ce398"
+  },
+  {
+    "id": "a-reset",
+    "harness": "ax",
+    "title": "AX changes architectural layer",
+    "path": "",
+    "evidence": "historical",
+    "kind": "commit",
+    "repository": "google/ax",
+    "commit": "dc4f36cdba647f110b34fd69adf31eb2bec37ca3"
+  },
+  {
+    "id": "z-import",
+    "harness": "zcode",
+    "title": "A two-commit source opening",
+    "path": "",
+    "evidence": "historical",
+    "kind": "commit",
+    "repository": "zai-org/ZCode",
+    "commit": "77432b6dbf9f70176ced3f4dcdc25f851c3acb2d"
+  },
+  {
+    "id": "z-open",
+    "harness": "zcode",
+    "title": "ZCode source opens",
+    "path": "",
+    "evidence": "historical",
+    "kind": "commit",
+    "repository": "zai-org/ZCode",
+    "commit": "872ad960de7ec172591f7e1952f7849229f94521"
+  }
+]

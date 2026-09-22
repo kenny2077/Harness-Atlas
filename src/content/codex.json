@@ -1,0 +1,370 @@
+{
+  "id": "codex",
+  "name": "OpenAI Codex",
+  "shortName": "Codex",
+  "color": "#2F62D6",
+  "language": "Rust",
+  "category": "Coding harness",
+  "summary": {
+    "text": "A Rust session core connects terminal, protocol and SDK clients to a model–tool loop.",
+    "sources": ["c-turn", "c-server"],
+    "evidence": "documented"
+  },
+  "maturity": {
+    "text": "Public history reaches back to April 2025. Stable releases coexist with active alpha development.",
+    "sources": ["c-launch", "c-overview"],
+    "evidence": "documented"
+  },
+  "advantages": [
+    {
+      "text": "Explicit boundaries between clients, turn execution and operating-system sandboxing.",
+      "sources": ["c-turn", "c-sandbox", "c-server"],
+      "evidence": "inferred"
+    },
+    {
+      "text": "A long public history makes architectural changes unusually traceable in this comparison.",
+      "sources": ["c-launch"],
+      "evidence": "inferred"
+    }
+  ],
+  "tradeoffs": [
+    {
+      "text": "The large Rust implementation and multiple client protocols create a demanding first code-reading exercise.",
+      "sources": ["c-turn", "c-server"],
+      "evidence": "inferred"
+    },
+    {
+      "text": "The open repository does not represent every part of the hosted product ecosystem.",
+      "sources": ["c-overview"],
+      "evidence": "documented"
+    }
+  ],
+  "taskFit": [
+    {
+      "text": "Local repository work where execution policy and OS containment are important.",
+      "sources": ["c-sandbox"],
+      "evidence": "inferred"
+    },
+    {
+      "text": "Headless automation and applications built on the app-server protocol.",
+      "sources": ["c-server", "c-overview"],
+      "evidence": "inferred"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "tui",
+      "label": "Terminal UI",
+      "subtitle": "Client interface",
+      "kind": "client",
+      "x": 200,
+      "y": 70,
+      "width": 190,
+      "sourceIds": ["c-overview"],
+      "responsibility": {
+        "text": "Presents the task and sends user input into the shared runtime.",
+        "sources": ["c-overview"],
+        "evidence": "documented"
+      },
+      "inputs": "User prompt and session selection",
+      "outputs": "A runtime request and streamed events",
+      "extension": "A client can change without replacing the central execution loop.",
+      "failureMode": "Client disconnection and runtime completion are separate events."
+    },
+    {
+      "id": "sdk",
+      "label": "SDK / exec",
+      "subtitle": "Client interface",
+      "kind": "client",
+      "x": 500,
+      "y": 70,
+      "width": 190,
+      "sourceIds": ["c-overview"],
+      "responsibility": {
+        "text": "Presents the task and sends user input into the shared runtime.",
+        "sources": ["c-overview"],
+        "evidence": "documented"
+      },
+      "inputs": "User prompt and session selection",
+      "outputs": "A runtime request and streamed events",
+      "extension": "A client can change without replacing the central execution loop.",
+      "failureMode": "Client disconnection and runtime completion are separate events."
+    },
+    {
+      "id": "app",
+      "label": "App server",
+      "subtitle": "Client interface",
+      "kind": "client",
+      "x": 800,
+      "y": 70,
+      "width": 190,
+      "sourceIds": ["c-server"],
+      "responsibility": {
+        "text": "Presents the task and sends user input into the shared runtime.",
+        "sources": ["c-server"],
+        "evidence": "documented"
+      },
+      "inputs": "User prompt and session selection",
+      "outputs": "A runtime request and streamed events",
+      "extension": "A client can change without replacing the central execution loop.",
+      "failureMode": "Client disconnection and runtime completion are separate events."
+    },
+    {
+      "id": "session",
+      "label": "Session / TurnContext",
+      "subtitle": "Shared Rust core",
+      "kind": "core",
+      "x": 500,
+      "y": 215,
+      "width": 285,
+      "sourceIds": ["c-turn"],
+      "responsibility": {
+        "text": "Owns a turn, its context and the repeated sampling cycle. A tool request leads to another model sample after the result is returned.",
+        "sources": ["c-turn"],
+        "evidence": "implemented"
+      },
+      "inputs": "Prompt, session state and steering input",
+      "outputs": "Model requests and durable turn events",
+      "extension": "Clients enter through the CLI or the app-server protocol.",
+      "failureMode": "Cancellation and compaction failures must preserve input for a recoverable turn.",
+      "code": {
+        "text": "pub(crate) async fn run_turn(\n    sess: Arc<Session>,\n    turn_context: Arc<TurnContext>,",
+        "annotation": "The function receives a shared session and a per-turn context. Excerpt; remaining parameters omitted.",
+        "source": "c-turn"
+      }
+    },
+    {
+      "id": "model",
+      "label": "Model request",
+      "subtitle": "Context → next action",
+      "kind": "model",
+      "x": 185,
+      "y": 375,
+      "width": 190,
+      "sourceIds": ["c-turn"],
+      "responsibility": {
+        "text": "Samples the configured model with conversation context and available tools.",
+        "sources": ["c-turn"],
+        "evidence": "implemented"
+      },
+      "inputs": "Prepared messages and tool schemas",
+      "outputs": "Assistant content or tool requests",
+      "extension": "Model configuration changes the provider-facing request.",
+      "failureMode": "A failed or cancelled request cannot be treated as a completed response."
+    },
+    {
+      "id": "tools",
+      "label": "Tool router",
+      "subtitle": "Resolve a tool call",
+      "kind": "tool",
+      "x": 520,
+      "y": 375,
+      "width": 190,
+      "sourceIds": ["c-turn"],
+      "responsibility": {
+        "text": "Runs requested tools and supplies their output to the next sample. Tool execution remains separate from model sampling.",
+        "sources": ["c-turn"],
+        "evidence": "implemented"
+      },
+      "inputs": "Tool name and arguments",
+      "outputs": "Tool output associated with its call",
+      "extension": "Native tools and MCP extend the set of callable operations.",
+      "failureMode": "A tool error becomes part of the continuing conversation."
+    },
+    {
+      "id": "state",
+      "label": "Rollout + state",
+      "subtitle": "Durable conversation",
+      "kind": "state",
+      "x": 820,
+      "y": 375,
+      "width": 190,
+      "sourceIds": ["c-turn", "c-server"],
+      "responsibility": {
+        "text": "Persists thread activity so clients can resume and inspect work across turns.",
+        "sources": ["c-turn", "c-server"],
+        "evidence": "implemented"
+      },
+      "inputs": "Turn events and conversation items",
+      "outputs": "Restorable thread context",
+      "extension": "The app-server protocol exposes thread operations.",
+      "failureMode": "Stored conversation state does not undo an external tool's effects."
+    },
+    {
+      "id": "extensions",
+      "label": "Skills · hooks · MCP",
+      "subtitle": "Context and tool seams",
+      "kind": "extension",
+      "x": 185,
+      "y": 560,
+      "width": 190,
+      "sourceIds": ["c-turn", "c-hooks"],
+      "responsibility": {
+        "text": "Adds reusable instructions, lifecycle interception and external tool connectivity around the core loop.",
+        "sources": ["c-turn", "c-hooks"],
+        "evidence": "implemented"
+      },
+      "inputs": "Configuration and extension declarations",
+      "outputs": "Additional context, tools or hook decisions",
+      "extension": "Skill files, hooks, plugins and MCP servers.",
+      "failureMode": "An extension's presence does not mean it is loaded or trusted in every session."
+    },
+    {
+      "id": "policy",
+      "label": "Approval policy",
+      "subtitle": "Allow · ask · deny",
+      "kind": "policy",
+      "x": 520,
+      "y": 550,
+      "width": 190,
+      "sourceIds": ["c-sandbox", "c-hooks"],
+      "responsibility": {
+        "text": "Decides whether a requested action may run under configured policy. Human approval and OS restrictions serve different purposes.",
+        "sources": ["c-sandbox", "c-hooks"],
+        "evidence": "implemented"
+      },
+      "inputs": "Proposed execution and configured rules",
+      "outputs": "Approval, rejection or escalation",
+      "extension": "Managed configuration and lifecycle hooks participate in policy.",
+      "failureMode": "Approval alone does not constrain a process after it starts."
+    },
+    {
+      "id": "sandbox",
+      "label": "OS sandbox",
+      "subtitle": "Process · files · network",
+      "kind": "boundary",
+      "x": 520,
+      "y": 705,
+      "width": 300,
+      "sourceIds": ["c-sandbox"],
+      "responsibility": {
+        "text": "Constrains execution using platform backends. The Linux design uses filesystem and namespace boundaries around the command.",
+        "sources": ["c-sandbox"],
+        "evidence": "documented"
+      },
+      "inputs": "An authorized command and execution policy",
+      "outputs": "Constrained tool output",
+      "extension": "The containment mechanism depends on the operating system and selected mode.",
+      "failureMode": "A more permissive execution mode changes the boundary; do not assume all commands are equally contained."
+    }
+  ],
+  "edges": [
+    {
+      "id": "tui-session",
+      "from": "tui",
+      "to": "session",
+      "label": "input",
+      "kind": "request"
+    },
+    {
+      "id": "sdk-session",
+      "from": "sdk",
+      "to": "session",
+      "label": "input",
+      "kind": "request"
+    },
+    {
+      "id": "app-session",
+      "from": "app",
+      "to": "session",
+      "label": "protocol",
+      "kind": "request"
+    },
+    {
+      "id": "session-model",
+      "from": "session",
+      "to": "model",
+      "label": "context",
+      "kind": "request"
+    },
+    {
+      "id": "model-tools",
+      "from": "model",
+      "to": "tools",
+      "label": "tool call",
+      "kind": "request"
+    },
+    {
+      "id": "tools-policy",
+      "from": "tools",
+      "to": "policy",
+      "label": "authorize",
+      "kind": "request"
+    },
+    {
+      "id": "policy-sandbox",
+      "from": "policy",
+      "to": "sandbox",
+      "label": "execute",
+      "kind": "request"
+    },
+    {
+      "id": "tools-state",
+      "from": "tools",
+      "to": "state",
+      "label": "record",
+      "kind": "state"
+    },
+    {
+      "id": "sandbox-model",
+      "from": "sandbox",
+      "to": "model",
+      "label": "tool result",
+      "kind": "result"
+    },
+    {
+      "id": "extensions-session",
+      "from": "extensions",
+      "to": "session",
+      "label": "extend",
+      "kind": "composition"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "loop",
+      "title": "The turn loop",
+      "heading": "Inside a coding turn",
+      "body": "Follow a request from the first prompt to a tool result.",
+      "focus": ["session", "model", "tools"],
+      "takeaway": "The model proposes actions; the harness controls the loop that executes them.",
+      "sourceIds": ["c-turn"]
+    },
+    {
+      "id": "tools",
+      "title": "Tools and approval",
+      "heading": "Before a tool runs",
+      "body": "Follow the proposed action through routing and policy. The permission decision is distinct from the execution boundary.",
+      "focus": ["tools", "policy"],
+      "takeaway": "A tool call is a request, not an unconditional command.",
+      "sourceIds": ["c-turn", "c-hooks"]
+    },
+    {
+      "id": "boundary",
+      "title": "Execution boundary",
+      "heading": "Where a command can act",
+      "body": "Inspect the OS sandbox and compare it with the approval policy above it.",
+      "focus": ["policy", "sandbox"],
+      "takeaway": "Approval answers whether. Containment limits where and how.",
+      "sourceIds": ["c-sandbox"]
+    },
+    {
+      "id": "memory",
+      "title": "Session memory",
+      "heading": "What survives a turn",
+      "body": "The shared core records conversation activity for continued work and protocol clients.",
+      "focus": ["state", "session"],
+      "takeaway": "Persistence supports resumption; it is not a rollback of the outside world.",
+      "sourceIds": ["c-server", "c-turn"]
+    },
+    {
+      "id": "extensions",
+      "title": "Extensions",
+      "heading": "What can be added",
+      "body": "Skills, hooks, plugins and MCP add instructions, interception and capabilities around the Rust core.",
+      "focus": ["extensions", "tools"],
+      "takeaway": "A new capability need not replace the entire turn loop.",
+      "sourceIds": ["c-turn", "c-hooks"]
+    }
+  ]
+}

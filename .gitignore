@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.research/
+.impeccable/review/
+.impeccable/build/
+.impeccable/mocks/
+.impeccable/config.local.json
+.impeccable/regions.json
+playwright-report/
+test-results/
+.DS_Store
+*.local
+*.tsbuildinfo

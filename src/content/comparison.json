@@ -1,0 +1,310 @@
+[
+  {
+    "id": "loop",
+    "title": "Model loop",
+    "group": "Architecture",
+    "description": "Who owns the repeated model/tool cycle?",
+    "findings": {
+      "zcode": {
+        "text": "Explicit TypeScript turn state and provider projections.",
+        "sources": ["z-turn"],
+        "evidence": "documented"
+      },
+      "deepseek": {
+        "text": "The agent loop is itself a replaceable Cordis plugin.",
+        "sources": ["d-loop"],
+        "evidence": "documented"
+      },
+      "codex": {
+        "text": "Rust Session and TurnContext own the sampling cycle.",
+        "sources": ["c-turn"],
+        "evidence": "documented"
+      },
+      "ax": {
+        "text": "The hosted command owns its loop; AX reconciles task infrastructure.",
+        "sources": ["a-reconcile", "a-runner"],
+        "evidence": "documented"
+      }
+    }
+  },
+  {
+    "id": "tools",
+    "title": "Tools",
+    "group": "Architecture",
+    "description": "How does a model action become an operation?",
+    "findings": {
+      "zcode": {
+        "text": "Tool scheduling passes through permission and execution.",
+        "sources": ["z-turn"],
+        "evidence": "documented"
+      },
+      "deepseek": {
+        "text": "Typed pre/execute/post events wrap a guarded pipeline.",
+        "sources": ["d-architecture"],
+        "evidence": "documented"
+      },
+      "codex": {
+        "text": "Requested calls execute and return results to the next sample.",
+        "sources": ["c-turn"],
+        "evidence": "documented"
+      },
+      "ax": {
+        "text": "Tools belong to the hosted agent; the runner supervises its process.",
+        "sources": ["a-runner"],
+        "evidence": "documented"
+      }
+    }
+  },
+  {
+    "id": "hooks",
+    "title": "Hooks",
+    "group": "Extensions",
+    "description": "Where can behavior be intercepted?",
+    "findings": {
+      "zcode": {
+        "text": "Lifecycle hooks and separately trusted workspace hooks.",
+        "sources": ["z-hooks", "z-safety"],
+        "evidence": "documented"
+      },
+      "deepseek": {
+        "text": "Native typed events plus partial Codex/Claude hook bridges.",
+        "sources": ["d-hooks", "d-bridge"],
+        "evidence": "documented"
+      },
+      "codex": {
+        "text": "Lifecycle hooks around the core turn and tool behavior.",
+        "sources": ["c-hooks"],
+        "evidence": "documented"
+      },
+      "ax": {
+        "text": "No general hook lifecycle; custom runners expose a different seam.",
+        "sources": ["a-custom"],
+        "evidence": "documented"
+      }
+    }
+  },
+  {
+    "id": "mcp",
+    "title": "MCP",
+    "group": "Extensions",
+    "description": "How are external tools connected?",
+    "findings": {
+      "zcode": {
+        "text": "Runtime and plugin declarations load MCP capabilities.",
+        "sources": ["z-turn", "z-plugin"],
+        "evidence": "documented"
+      },
+      "deepseek": {
+        "text": "MCP is a native capability in the plugin composition.",
+        "sources": ["d-architecture"],
+        "evidence": "documented"
+      },
+      "codex": {
+        "text": "MCP startup is integrated into the turn lifecycle.",
+        "sources": ["c-turn"],
+        "evidence": "documented"
+      },
+      "ax": {
+        "text": "Schema declarations exist; default workspace setup does not materialize MCP configuration.",
+        "sources": ["a-schema", "a-workspace"],
+        "evidence": "documented"
+      }
+    }
+  },
+  {
+    "id": "skills",
+    "title": "Skills",
+    "group": "Extensions",
+    "description": "How are reusable instructions introduced?",
+    "findings": {
+      "zcode": {
+        "text": "Plugin manifests include skills and commands.",
+        "sources": ["z-plugin"],
+        "evidence": "documented"
+      },
+      "deepseek": {
+        "text": "Skill catalogs and per-agent capability composition.",
+        "sources": ["d-skill-event", "d-bundles"],
+        "evidence": "documented"
+      },
+      "codex": {
+        "text": "Skill loading integrates with turn preparation.",
+        "sources": ["c-turn"],
+        "evidence": "documented"
+      },
+      "ax": {
+        "text": "Skill schema exists; current setup creates a path without fetching registries.",
+        "sources": ["a-workspace", "a-schema"],
+        "evidence": "documented"
+      }
+    }
+  },
+  {
+    "id": "permissions",
+    "title": "Permissions",
+    "group": "Safety",
+    "description": "Who decides whether an action may run?",
+    "findings": {
+      "zcode": {
+        "text": "Modes, rules and hook trust govern host operations.",
+        "sources": ["z-safety"],
+        "evidence": "documented"
+      },
+      "deepseek": {
+        "text": "Approval and escalation coordinate tool execution.",
+        "sources": ["d-sandbox", "d-safety"],
+        "evidence": "documented"
+      },
+      "codex": {
+        "text": "Configured policy and hooks can participate in action decisions.",
+        "sources": ["c-hooks", "c-sandbox"],
+        "evidence": "documented"
+      },
+      "ax": {
+        "text": "Current v0.3 does not supply the earlier human-approval runtime.",
+        "sources": ["a-reset", "a-schema"],
+        "evidence": "documented"
+      }
+    }
+  },
+  {
+    "id": "containment",
+    "title": "Containment",
+    "group": "Safety",
+    "description": "What constrains execution after it starts?",
+    "findings": {
+      "zcode": {
+        "text": "Shared host execution does not promise a default OS sandbox.",
+        "sources": ["z-safety"],
+        "evidence": "documented"
+      },
+      "deepseek": {
+        "text": "Platform sandbox backends; host plugins remain outside that boundary.",
+        "sources": ["d-sandbox", "d-plugin"],
+        "evidence": "documented"
+      },
+      "codex": {
+        "text": "OS-specific execution sandbox backends; Linux uses explicit filesystem and namespace constraints.",
+        "sources": ["c-sandbox"],
+        "evidence": "documented"
+      },
+      "ax": {
+        "text": "Agent Substrate actors, resource declarations, snapshots and gateway egress policy.",
+        "sources": ["a-sandbox", "a-schema"],
+        "evidence": "documented"
+      }
+    }
+  },
+  {
+    "id": "state",
+    "title": "State",
+    "group": "Operations",
+    "description": "What persists across requests?",
+    "findings": {
+      "zcode": {
+        "text": "SQLite sessions plus data owned by other product surfaces.",
+        "sources": ["z-safety"],
+        "evidence": "documented"
+      },
+      "deepseek": {
+        "text": "Append-only event log with derived model context.",
+        "sources": ["d-sessions"],
+        "evidence": "documented"
+      },
+      "codex": {
+        "text": "Durable threads and rollout-backed session state.",
+        "sources": ["c-server", "c-turn"],
+        "evidence": "documented"
+      },
+      "ax": {
+        "text": "Redis resource/status state and persistent workspace snapshots; no conversation abstraction.",
+        "sources": ["a-design", "a-sandbox"],
+        "evidence": "documented"
+      }
+    }
+  },
+  {
+    "id": "clients",
+    "title": "Clients",
+    "group": "Operations",
+    "description": "Where do people and applications enter?",
+    "findings": {
+      "zcode": {
+        "text": "Desktop, web and terminal clients in one product repository.",
+        "sources": ["z-overview"],
+        "evidence": "documented"
+      },
+      "deepseek": {
+        "text": "Plugin-composed web, headless, SDK and ACP profiles.",
+        "sources": ["d-bundles", "d-clients"],
+        "evidence": "documented"
+      },
+      "codex": {
+        "text": "TUI, exec, SDK and app-server protocol entrypoints.",
+        "sources": ["c-overview", "c-server"],
+        "evidence": "documented"
+      },
+      "ax": {
+        "text": "Operator CLI and gRPC control plane.",
+        "sources": ["a-overview"],
+        "evidence": "documented"
+      }
+    }
+  },
+  {
+    "id": "extension",
+    "title": "Primary extension seam",
+    "group": "Extensions",
+    "description": "What is intentionally replaceable?",
+    "findings": {
+      "zcode": {
+        "text": "A manifest bundles agents, commands, settings, hooks, skills and MCP.",
+        "sources": ["z-plugin"],
+        "evidence": "documented"
+      },
+      "deepseek": {
+        "text": "Nearly every runtime capability can be a native plugin.",
+        "sources": ["d-cordis"],
+        "evidence": "documented"
+      },
+      "codex": {
+        "text": "Instructions, tools and integrations around a central Rust runtime.",
+        "sources": ["c-turn", "c-hooks"],
+        "evidence": "documented"
+      },
+      "ax": {
+        "text": "Task image/command and the custom runner contract.",
+        "sources": ["a-custom"],
+        "evidence": "documented"
+      }
+    }
+  },
+  {
+    "id": "deployment",
+    "title": "Deployment",
+    "group": "Operations",
+    "description": "What infrastructure does it expect?",
+    "findings": {
+      "zcode": {
+        "text": "Local application/server with documented remote workspace options.",
+        "sources": ["z-overview"],
+        "evidence": "documented"
+      },
+      "deepseek": {
+        "text": "Profile-based local or remote execution; preview maturity.",
+        "sources": ["d-bundles", "d-safety"],
+        "evidence": "documented"
+      },
+      "codex": {
+        "text": "Local agent and protocol services with external model access.",
+        "sources": ["c-overview"],
+        "evidence": "documented"
+      },
+      "ax": {
+        "text": "Kubernetes, Redis, Agent Substrate and container build/registry infrastructure.",
+        "sources": ["a-overview"],
+        "evidence": "documented"
+      }
+    }
+  }
+]

@@ -1,0 +1,313 @@
+{
+  "id": "ax",
+  "name": "Google AX",
+  "shortName": "AX",
+  "color": "#138A7E",
+  "language": "Go",
+  "category": "Workload orchestrator",
+  "summary": {
+    "text": "A declarative control plane schedules and supervises arbitrary agent commands in isolated task environments.",
+    "sources": ["a-design", "a-runner"],
+    "evidence": "documented"
+  },
+  "maturity": {
+    "text": "v0.3.0 follows a major September 2026 rewrite. Its v1alpha1 API and core concepts remain unstable.",
+    "sources": ["a-overview", "a-reset"],
+    "evidence": "documented"
+  },
+  "advantages": [
+    {
+      "text": "The control-plane/runner boundary can accommodate different harnesses and languages.",
+      "sources": ["a-custom", "a-design"],
+      "evidence": "inferred"
+    },
+    {
+      "text": "Declarative resources make workspace, egress and workload lifecycle visible to an operator.",
+      "sources": ["a-schema"],
+      "evidence": "inferred"
+    }
+  ],
+  "tradeoffs": [
+    {
+      "text": "Requires Kubernetes, Redis, Agent Substrate and container infrastructure.",
+      "sources": ["a-overview"],
+      "evidence": "documented"
+    },
+    {
+      "text": "MCP and skill registries are declared in the schema, but the current default workspace setup does not materialize them.",
+      "sources": ["a-schema", "a-workspace"],
+      "evidence": "implemented"
+    }
+  ],
+  "taskFit": [
+    {
+      "text": "Infrastructure teams operating many isolated agent workloads or evaluation tasks.",
+      "sources": ["a-design"],
+      "evidence": "inferred"
+    },
+    {
+      "text": "Workloads that need durable workspaces, suspend/resume and operator inspection.",
+      "sources": ["a-sandbox", "a-overview"],
+      "evidence": "inferred"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "manifest",
+      "label": "Task manifests",
+      "subtitle": "Task · Workspace · Gateway · Model",
+      "kind": "client",
+      "x": 230,
+      "y": 70,
+      "width": 280,
+      "sourceIds": ["a-schema", "a-overview"],
+      "responsibility": {
+        "text": "Declares workload configuration as typed resources in the ax.io/v1alpha1 API.",
+        "sources": ["a-schema", "a-overview"],
+        "evidence": "implemented"
+      },
+      "inputs": "YAML declarations",
+      "outputs": "Typed API update requests",
+      "extension": "Images, commands, repositories and policies are configurable.",
+      "failureMode": "A declared field is not proof that the default runner implements its behavior."
+    },
+    {
+      "id": "server",
+      "label": "ax-server",
+      "subtitle": "Stateless gRPC API",
+      "kind": "client",
+      "x": 750,
+      "y": 70,
+      "width": 190,
+      "sourceIds": ["a-design"],
+      "responsibility": {
+        "text": "Validates and stores resources, publishing task events for controllers.",
+        "sources": ["a-design"],
+        "evidence": "documented"
+      },
+      "inputs": "CLI resource requests",
+      "outputs": "Stored resources and task events",
+      "extension": "The API is independent of the agent process.",
+      "failureMode": "Control-plane access needs deployment-level consideration."
+    },
+    {
+      "id": "redis",
+      "label": "Redis",
+      "subtitle": "Resource hashes + event stream",
+      "kind": "state",
+      "x": 500,
+      "y": 215,
+      "width": 285,
+      "sourceIds": ["a-design", "a-worker"],
+      "responsibility": {
+        "text": "Stores resource state and distributes reconciliation work through Redis Streams.",
+        "sources": ["a-design", "a-worker"],
+        "evidence": "implemented"
+      },
+      "inputs": "Resource updates and task events",
+      "outputs": "Controller work and watchable task status",
+      "extension": "Controllers consume through a consumer group.",
+      "failureMode": "Queue state and the sandbox's own persistent state are different stores."
+    },
+    {
+      "id": "controller",
+      "label": "ax-controller",
+      "subtitle": "Reconcile desired state",
+      "kind": "core",
+      "x": 230,
+      "y": 390,
+      "width": 190,
+      "sourceIds": ["a-reconcile", "a-worker"],
+      "responsibility": {
+        "text": "Ensures an Agent Substrate atespace, template and actor exist, then applies lifecycle and egress decisions.",
+        "sources": ["a-reconcile", "a-worker"],
+        "evidence": "implemented"
+      },
+      "inputs": "Desired task resources and events",
+      "outputs": "Actor creation, policy and suspend/resume requests",
+      "extension": "Controllers can run as multiple consumers.",
+      "failureMode": "Reconciliation is a distributed workflow, not a model sampling loop."
+    },
+    {
+      "id": "gateway",
+      "label": "Gateway policy",
+      "subtitle": "Outbound hosts and ports",
+      "kind": "policy",
+      "x": 770,
+      "y": 390,
+      "width": 190,
+      "sourceIds": ["a-schema", "a-reconcile"],
+      "responsibility": {
+        "text": "Describes listeners and outbound network access applied to the task environment.",
+        "sources": ["a-schema", "a-reconcile"],
+        "evidence": "implemented"
+      },
+      "inputs": "Gateway specification",
+      "outputs": "Egress restrictions",
+      "extension": "Host and port allowlists are declarative.",
+      "failureMode": "The default without a restrictive gateway allows port 443 to all hosts."
+    },
+    {
+      "id": "substrate",
+      "label": "Agent Substrate",
+      "subtitle": "Actor isolation + snapshots",
+      "kind": "boundary",
+      "x": 500,
+      "y": 545,
+      "width": 300,
+      "sourceIds": ["a-design", "a-sandbox"],
+      "responsibility": {
+        "text": "Supplies the execution environment and durable snapshots used for task suspension and resumption.",
+        "sources": ["a-design", "a-sandbox"],
+        "evidence": "documented"
+      },
+      "inputs": "Actor specification and lifecycle requests",
+      "outputs": "Running or suspended task environment",
+      "extension": "AX delegates isolation and actor lifecycle to this substrate.",
+      "failureMode": "Suspend/resume preserves workspace state; it is not a conversation abstraction."
+    },
+    {
+      "id": "runner",
+      "label": "ax-task-runner",
+      "subtitle": "PID 1 and workspace setup",
+      "kind": "core",
+      "x": 260,
+      "y": 710,
+      "width": 230,
+      "sourceIds": ["a-runner", "a-workspace"],
+      "responsibility": {
+        "text": "Prepares repositories, starts guest services and supervises the configured command inside the task.",
+        "sources": ["a-runner", "a-workspace"],
+        "evidence": "implemented"
+      },
+      "inputs": "Task command, workspace and environment",
+      "outputs": "A running child process and guest services",
+      "extension": "Extend or replace the runner using its documented contract.",
+      "failureMode": "The current runner does not automatically turn every child exit into a completed control-plane task."
+    },
+    {
+      "id": "command",
+      "label": "Agent command",
+      "subtitle": "Your chosen harness",
+      "kind": "tool",
+      "x": 740,
+      "y": 710,
+      "width": 230,
+      "sourceIds": ["a-custom", "a-runner"],
+      "responsibility": {
+        "text": "Runs the actual agent inside the task. That process owns any model–tool loop and conversation logic.",
+        "sources": ["a-custom", "a-runner"],
+        "evidence": "implemented"
+      },
+      "inputs": "Prepared workspace and process environment",
+      "outputs": "Agent-specific work and outputs",
+      "extension": "Any compatible image/command can supply the workload.",
+      "failureMode": "A hosted harness must still configure its own credentials and tool policies."
+    }
+  ],
+  "edges": [
+    {
+      "id": "manifest-server",
+      "from": "manifest",
+      "to": "server",
+      "label": "apply",
+      "kind": "request"
+    },
+    {
+      "id": "server-redis",
+      "from": "server",
+      "to": "redis",
+      "label": "store + publish",
+      "kind": "request"
+    },
+    {
+      "id": "redis-controller",
+      "from": "redis",
+      "to": "controller",
+      "label": "consume",
+      "kind": "request"
+    },
+    {
+      "id": "controller-substrate",
+      "from": "controller",
+      "to": "substrate",
+      "label": "reconcile",
+      "kind": "request"
+    },
+    {
+      "id": "gateway-substrate",
+      "from": "gateway",
+      "to": "substrate",
+      "label": "egress",
+      "kind": "composition"
+    },
+    {
+      "id": "substrate-runner",
+      "from": "substrate",
+      "to": "runner",
+      "label": "start / resume",
+      "kind": "request"
+    },
+    {
+      "id": "runner-command",
+      "from": "runner",
+      "to": "command",
+      "label": "supervise",
+      "kind": "request"
+    },
+    {
+      "id": "controller-redis",
+      "from": "controller",
+      "to": "redis",
+      "label": "status",
+      "kind": "state"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "resources",
+      "title": "Declare the workload",
+      "heading": "A different architectural layer",
+      "body": "AX runs the environment around an agent. Begin with its four declarative resources.",
+      "focus": ["manifest", "server"],
+      "takeaway": "The agent's model–tool loop belongs to the hosted command.",
+      "sourceIds": ["a-overview", "a-schema"]
+    },
+    {
+      "id": "reconcile",
+      "title": "The control plane",
+      "heading": "Desired state becomes a task",
+      "body": "Follow resource updates through Redis and the controller's reconciliation loop.",
+      "focus": ["server", "redis", "controller"],
+      "takeaway": "Reconciliation coordinates infrastructure, not assistant reasoning.",
+      "sourceIds": ["a-design", "a-worker", "a-reconcile"]
+    },
+    {
+      "id": "boundary",
+      "title": "Isolation and networking",
+      "heading": "Draw the execution boundary",
+      "body": "Agent Substrate supplies actors and snapshots; Gateway specifies network policy.",
+      "focus": ["gateway", "substrate"],
+      "takeaway": "Network policy, resource limits and human approval are different controls.",
+      "sourceIds": ["a-sandbox", "a-reconcile"]
+    },
+    {
+      "id": "runner",
+      "title": "The runner contract",
+      "heading": "Inside the task",
+      "body": "The runner prepares a workspace and launches the selected command.",
+      "focus": ["runner", "command"],
+      "takeaway": "A custom runner is AX's main extension seam.",
+      "sourceIds": ["a-runner", "a-custom"]
+    },
+    {
+      "id": "evolution",
+      "title": "Before and after v0.3",
+      "heading": "Read history in context",
+      "body": "The September rewrite removed the previous built-in harness. Current MCP and skill declarations also differ from default setup behavior.",
+      "focus": ["manifest", "runner"],
+      "takeaway": "Do not combine historical and current capabilities into one architecture.",
+      "sourceIds": ["a-reset", "a-schema", "a-workspace"]
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+[
+  {
+    "id": "c-launch",
+    "date": "2025-04-16",
+    "harness": "codex",
+    "title": "Codex becomes public",
+    "description": "The public history begins. This dates the repository, not the invention of the agent loop.",
+    "scope": "history-boundary",
+    "auditability": "history-boundary",
+    "sourceIds": ["c-launch"]
+  },
+  {
+    "id": "c-linux",
+    "date": "2025-05-23",
+    "harness": "codex",
+    "title": "A Linux sandbox boundary",
+    "description": "A dedicated Linux sandbox crate enters the available history.",
+    "scope": "implementation",
+    "auditability": "exact",
+    "sourceIds": ["c-linux"]
+  },
+  {
+    "id": "c-sdk",
+    "date": "2025-09-29",
+    "harness": "codex",
+    "title": "A TypeScript SDK",
+    "description": "The SDK scaffold adds a programmatic route into the harness.",
+    "scope": "implementation",
+    "auditability": "exact",
+    "sourceIds": ["c-sdk"]
+  },
+  {
+    "id": "c-agents",
+    "date": "2026-01-06",
+    "harness": "codex",
+    "title": "An agent controller",
+    "description": "An auditable milestone in the collaboration and subagent line.",
+    "scope": "implementation",
+    "auditability": "exact",
+    "sourceIds": ["c-agents"]
+  },
+  {
+    "id": "c-plan",
+    "date": "2026-01-30",
+    "harness": "codex",
+    "title": "Plan mode in the TUI",
+    "description": "Plan items and their rendering become visible in the public history.",
+    "scope": "implementation",
+    "auditability": "exact",
+    "sourceIds": ["c-plan"]
+  },
+  {
+    "id": "c-skills",
+    "date": "2026-01-31",
+    "harness": "codex",
+    "title": "Skill loading",
+    "description": "Reusable instructions enter the inspected skill-loading history.",
+    "scope": "implementation",
+    "auditability": "exact",
+    "sourceIds": ["c-skills"]
+  },
+  {
+    "id": "c-hook-event",
+    "date": "2026-02-05",
+    "harness": "codex",
+    "title": "Lifecycle hooks",
+    "description": "A hook implementation milestone creates explicit interception points.",
+    "scope": "implementation",
+    "auditability": "exact",
+    "sourceIds": ["c-hook-event"]
+  },
+  {
+    "id": "a-approval",
+    "date": "2026-02-23",
+    "harness": "ax",
+    "title": "Historical human approval",
+    "description": "The earlier AX harness recorded structured approval decisions. This behavior was removed by the v0.3 rewrite.",
+    "scope": "implementation",
+    "auditability": "exact",
+    "sourceIds": ["a-approval"]
+  },
+  {
+    "id": "c-plugins",
+    "date": "2026-03-01",
+    "harness": "codex",
+    "title": "Plugin loading",
+    "description": "Initial plugin loading precedes marketplace and installation work.",
+    "scope": "implementation",
+    "auditability": "exact",
+    "sourceIds": ["c-plugins"]
+  },
+  {
+    "id": "d-start",
+    "date": "2026-06-10",
+    "harness": "deepseek",
+    "title": "Available history starts",
+    "description": "The imported history already includes AGENTS.md. Import dates do not establish when every feature was first built.",
+    "scope": "history-boundary",
+    "auditability": "history-boundary",
+    "sourceIds": ["d-start"]
+  },
+  {
+    "id": "d-subagents",
+    "date": "2026-06-21",
+    "harness": "deepseek",
+    "title": "A subagent capability seam",
+    "description": "Delegation is exposed as a composable capability.",
+    "scope": "implementation",
+    "auditability": "exact",
+    "sourceIds": ["d-subagents"]
+  },
+  {
+    "id": "d-compat",
+    "date": "2026-07-01",
+    "harness": "deepseek",
+    "title": "Codex and Claude hook compatibility",
+    "description": "A shared hook protocol is direct evidence of interoperability, not proof of copied internal architecture.",
+    "scope": "implementation",
+    "auditability": "exact",
+    "sourceIds": ["d-compat"]
+  },
+  {
+    "id": "d-mcp",
+    "date": "2026-07-07",
+    "harness": "deepseek",
+    "title": "MCP client",
+    "description": "Standardized external tool connectivity joins the plugin tree.",
+    "scope": "implementation",
+    "auditability": "exact",
+    "sourceIds": ["d-mcp"]
+  },
+  {
+    "id": "d-skill-event",
+    "date": "2026-07-10",
+    "harness": "deepseek",
+    "title": "Skill catalogs",
+    "description": "Skills become an explicit discoverable capability.",
+    "scope": "implementation",
+    "auditability": "exact",
+    "sourceIds": ["d-skill-event"]
+  },
+  {
+    "id": "d-codex-provider",
+    "date": "2026-08-04",
+    "harness": "deepseek",
+    "title": "Codex as a subagent provider",
+    "description": "DeepSeek can invoke Codex through a dedicated provider.",
+    "scope": "implementation",
+    "auditability": "exact",
+    "sourceIds": ["d-codex-provider"]
+  },
+  {
+    "id": "a-reset",
+    "date": "2026-09-19",
+    "harness": "ax",
+    "title": "AX changes architectural layer",
+    "description": "The v0.3 rewrite replaces the built-in harness with declarative task orchestration. Earlier conversation, approval, and skill-loading features must be read historically.",
+    "scope": "removal",
+    "auditability": "exact",
+    "sourceIds": ["a-reset"]
+  },
+  {
+    "id": "z-import",
+    "date": "2026-09-20",
+    "harness": "zcode",
+    "title": "A two-commit source opening",
+    "description": "The imported code contains many features, but its public history cannot date their original introduction.",
+    "scope": "history-boundary",
+    "auditability": "history-boundary",
+    "sourceIds": ["z-import"]
+  },
+  {
+    "id": "z-open",
+    "date": "2026-09-21",
+    "harness": "zcode",
+    "title": "ZCode source opens",
+    "description": "The second public commit is the pinned snapshot studied here.",
+    "scope": "release",
+    "auditability": "exact",
+    "sourceIds": ["z-open"]
+  }
+]

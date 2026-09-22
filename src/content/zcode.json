@@ -1,0 +1,370 @@
+{
+  "id": "zcode",
+  "name": "ZCode",
+  "shortName": "ZCode",
+  "color": "#E56B36",
+  "language": "TypeScript",
+  "category": "Coding harness",
+  "summary": {
+    "text": "A desktop, web and terminal workbench built around a shared TypeScript agent runtime.",
+    "sources": ["z-overview"],
+    "evidence": "documented"
+  },
+  "maturity": {
+    "text": "Two public commits at this snapshot. The source opening exposes implementation, but not original feature dates.",
+    "sources": ["z-import", "z-open"],
+    "evidence": "historical"
+  },
+  "advantages": [
+    {
+      "text": "A complete product stack lets students trace one runtime through several user surfaces.",
+      "sources": ["z-overview"],
+      "evidence": "inferred"
+    },
+    {
+      "text": "The explicit turn loop and plugin manifest provide approachable TypeScript reading entrypoints.",
+      "sources": ["z-turn", "z-plugin"],
+      "evidence": "inferred"
+    }
+  ],
+  "tradeoffs": [
+    {
+      "text": "Public history cannot establish when the imported features were developed.",
+      "sources": ["z-import"],
+      "evidence": "historical"
+    },
+    {
+      "text": "The notice says host tools run with the system account's permissions; permission controls do not provide default OS isolation.",
+      "sources": ["z-safety"],
+      "evidence": "documented"
+    }
+  ],
+  "taskFit": [
+    {
+      "text": "UI-rich local and remote coding workflows across desktop, web and terminal.",
+      "sources": ["z-overview"],
+      "evidence": "inferred"
+    },
+    {
+      "text": "Studying product integration, plugin contracts and a TypeScript turn loop.",
+      "sources": ["z-plugin", "z-turn"],
+      "evidence": "inferred"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "desktop",
+      "label": "Desktop",
+      "subtitle": "Client interface",
+      "kind": "client",
+      "x": 200,
+      "y": 70,
+      "width": 190,
+      "sourceIds": ["z-overview"],
+      "responsibility": {
+        "text": "Presents the task and sends user input into the shared runtime.",
+        "sources": ["z-overview"],
+        "evidence": "documented"
+      },
+      "inputs": "User prompt and session selection",
+      "outputs": "A runtime request and streamed events",
+      "extension": "A client can change without replacing the central execution loop.",
+      "failureMode": "Client disconnection and runtime completion are separate events."
+    },
+    {
+      "id": "web",
+      "label": "Web",
+      "subtitle": "Client interface",
+      "kind": "client",
+      "x": 500,
+      "y": 70,
+      "width": 190,
+      "sourceIds": ["z-overview"],
+      "responsibility": {
+        "text": "Presents the task and sends user input into the shared runtime.",
+        "sources": ["z-overview"],
+        "evidence": "documented"
+      },
+      "inputs": "User prompt and session selection",
+      "outputs": "A runtime request and streamed events",
+      "extension": "A client can change without replacing the central execution loop.",
+      "failureMode": "Client disconnection and runtime completion are separate events."
+    },
+    {
+      "id": "tui",
+      "label": "Terminal UI",
+      "subtitle": "Client interface",
+      "kind": "client",
+      "x": 800,
+      "y": 70,
+      "width": 190,
+      "sourceIds": ["z-overview"],
+      "responsibility": {
+        "text": "Presents the task and sends user input into the shared runtime.",
+        "sources": ["z-overview"],
+        "evidence": "documented"
+      },
+      "inputs": "User prompt and session selection",
+      "outputs": "A runtime request and streamed events",
+      "extension": "A client can change without replacing the central execution loop.",
+      "failureMode": "Client disconnection and runtime completion are separate events."
+    },
+    {
+      "id": "runtime",
+      "label": "Agent runtime",
+      "subtitle": "Shared TypeScript loop",
+      "kind": "core",
+      "x": 500,
+      "y": 215,
+      "width": 280,
+      "sourceIds": ["z-turn", "z-overview"],
+      "responsibility": {
+        "text": "Drains runtime input, compacts context, initializes MCP and runs the next model-backed step.",
+        "sources": ["z-turn", "z-overview"],
+        "evidence": "implemented"
+      },
+      "inputs": "User input, history and runtime configuration",
+      "outputs": "Model steps and tool scheduling",
+      "extension": "Desktop and web use shared RPC/client layers; the CLI enters the runtime directly.",
+      "failureMode": "Long histories and queued steering require deliberate context handling."
+    },
+    {
+      "id": "model",
+      "label": "Provider request",
+      "subtitle": "Projected messages",
+      "kind": "model",
+      "x": 185,
+      "y": 375,
+      "width": 190,
+      "sourceIds": ["z-turn"],
+      "responsibility": {
+        "text": "Projects the current context into messages for the configured model provider.",
+        "sources": ["z-turn"],
+        "evidence": "implemented"
+      },
+      "inputs": "Conversation history and mode-filtered tools",
+      "outputs": "Model response and proposed calls",
+      "extension": "Provider adapters form a separate integration seam.",
+      "failureMode": "Provider errors interrupt sampling without implying a completed turn."
+    },
+    {
+      "id": "tools",
+      "label": "Tool scheduler",
+      "subtitle": "Permission → execution",
+      "kind": "tool",
+      "x": 520,
+      "y": 375,
+      "width": 190,
+      "sourceIds": ["z-turn"],
+      "responsibility": {
+        "text": "Schedules model-requested tools and returns their results for the following model round.",
+        "sources": ["z-turn"],
+        "evidence": "implemented"
+      },
+      "inputs": "Tool calls and execution context",
+      "outputs": "Persisted tool results",
+      "extension": "Tool handlers and MCP extend the callable operations.",
+      "failureMode": "Tool failure and permission rejection require different handling."
+    },
+    {
+      "id": "state",
+      "label": "SQLite sessions",
+      "subtitle": "Messages and checkpoints",
+      "kind": "state",
+      "x": 820,
+      "y": 375,
+      "width": 190,
+      "sourceIds": ["z-safety"],
+      "responsibility": {
+        "text": "Keeps CLI session data in SQLite, alongside product-specific persisted settings and runtime state.",
+        "sources": ["z-safety"],
+        "evidence": "documented"
+      },
+      "inputs": "Conversation and execution records",
+      "outputs": "Restorable local session data",
+      "extension": "Other product surfaces own additional data and settings.",
+      "failureMode": "Closing a window or uninstalling a client does not erase all local or remote copies."
+    },
+    {
+      "id": "extensions",
+      "label": "Plugin manifest",
+      "subtitle": "Skills · hooks · MCP",
+      "kind": "extension",
+      "x": 185,
+      "y": 560,
+      "width": 190,
+      "sourceIds": ["z-plugin", "z-hooks"],
+      "responsibility": {
+        "text": "A plugin groups agents, commands, skills, hooks, MCP servers and settings.",
+        "sources": ["z-plugin", "z-hooks"],
+        "evidence": "implemented"
+      },
+      "inputs": "Installed manifest and component files",
+      "outputs": "Registered extension capabilities",
+      "extension": "The manifest exposes explicit component fields.",
+      "failureMode": "Plugin admission and workspace-hook trust are separate decisions.",
+      "code": {
+        "text": "export interface PluginManifest {\n  agents?: unknown;\n  hooks?: unknown;\n  mcpServers?: unknown;\n  name: string;\n  skills?: unknown;\n}",
+        "annotation": "Selected manifest fields; unrelated fields omitted. The bundle can contribute several capability types.",
+        "source": "z-plugin"
+      }
+    },
+    {
+      "id": "policy",
+      "label": "Permission service",
+      "subtitle": "Rules and workspace trust",
+      "kind": "policy",
+      "x": 520,
+      "y": 550,
+      "width": 190,
+      "sourceIds": ["z-safety", "z-hooks"],
+      "responsibility": {
+        "text": "Controls tool permission and workspace hook trust under the selected operating mode.",
+        "sources": ["z-safety", "z-hooks"],
+        "evidence": "implemented"
+      },
+      "inputs": "Proposed action and configured rules",
+      "outputs": "A permission outcome",
+      "extension": "Rules, modes and hook configuration.",
+      "failureMode": "The notice warns that noninteractive prompt mode can default to yolo if no mode is supplied."
+    },
+    {
+      "id": "host",
+      "label": "Host execution",
+      "subtitle": "System account authority",
+      "kind": "boundary",
+      "x": 520,
+      "y": 705,
+      "width": 300,
+      "sourceIds": ["z-safety"],
+      "responsibility": {
+        "text": "File, terminal and Git operations run with the execution host account's authority. The notice does not promise a default OS sandbox.",
+        "sources": ["z-safety"],
+        "evidence": "documented"
+      },
+      "inputs": "An allowed tool operation",
+      "outputs": "Filesystem, process and network effects",
+      "extension": "External containment can be supplied by the environment.",
+      "failureMode": "Permission approval must not be mistaken for operating-system containment."
+    }
+  ],
+  "edges": [
+    {
+      "id": "desktop-runtime",
+      "from": "desktop",
+      "to": "runtime",
+      "label": "RPC",
+      "kind": "request"
+    },
+    {
+      "id": "web-runtime",
+      "from": "web",
+      "to": "runtime",
+      "label": "RPC",
+      "kind": "request"
+    },
+    {
+      "id": "tui-runtime",
+      "from": "tui",
+      "to": "runtime",
+      "label": "input",
+      "kind": "request"
+    },
+    {
+      "id": "runtime-model",
+      "from": "runtime",
+      "to": "model",
+      "label": "context",
+      "kind": "request"
+    },
+    {
+      "id": "model-tools",
+      "from": "model",
+      "to": "tools",
+      "label": "tool call",
+      "kind": "request"
+    },
+    {
+      "id": "tools-state",
+      "from": "tools",
+      "to": "state",
+      "label": "persist",
+      "kind": "state"
+    },
+    {
+      "id": "tools-policy",
+      "from": "tools",
+      "to": "policy",
+      "label": "authorize",
+      "kind": "request"
+    },
+    {
+      "id": "policy-host",
+      "from": "policy",
+      "to": "host",
+      "label": "execute",
+      "kind": "request"
+    },
+    {
+      "id": "host-model",
+      "from": "host",
+      "to": "model",
+      "label": "tool result",
+      "kind": "result"
+    },
+    {
+      "id": "extensions-runtime",
+      "from": "extensions",
+      "to": "runtime",
+      "label": "extend",
+      "kind": "composition"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "loop",
+      "title": "The shared runtime",
+      "heading": "One runtime, three surfaces",
+      "body": "Desktop, web and terminal entrypoints meet a shared agent runtime.",
+      "focus": ["desktop", "web", "tui", "runtime"],
+      "takeaway": "Separate the product's interface from the agent's execution loop.",
+      "sourceIds": ["z-overview", "z-turn"]
+    },
+    {
+      "id": "tools",
+      "title": "From model to tools",
+      "heading": "Follow the next action",
+      "body": "The turn loop projects provider messages and sends tool requests through scheduling and permission.",
+      "focus": ["model", "tools", "policy"],
+      "takeaway": "A model adapter changes the request boundary, not the whole product.",
+      "sourceIds": ["z-turn"]
+    },
+    {
+      "id": "boundary",
+      "title": "Execution authority",
+      "heading": "Approval is not isolation",
+      "body": "Trace an allowed action to the host account that executes it.",
+      "focus": ["policy", "host"],
+      "takeaway": "The current notice is essential evidence for understanding the actual boundary.",
+      "sourceIds": ["z-safety"]
+    },
+    {
+      "id": "memory",
+      "title": "Session state",
+      "heading": "What the workbench remembers",
+      "body": "Inspect the session database and distinguish it from data stored by desktop, web and remote surfaces.",
+      "focus": ["state", "runtime"],
+      "takeaway": "State can be spread across several execution environments.",
+      "sourceIds": ["z-safety"]
+    },
+    {
+      "id": "extensions",
+      "title": "Plugin components",
+      "heading": "Open the manifest",
+      "body": "Inspect the declared extension points: commands, skills, hooks, agents and MCP servers.",
+      "focus": ["extensions", "runtime"],
+      "takeaway": "A plugin is a bundle of capabilities with specific contracts.",
+      "sourceIds": ["z-plugin", "z-hooks"]
+    }
+  ]
+}

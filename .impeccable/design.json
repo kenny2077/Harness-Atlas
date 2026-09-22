@@ -1,0 +1,411 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-22T03:57:03.030Z",
+  "title": "Design System: Agent Harness Atlas",
+  "extensions": {
+    "colorMeta": {
+      "lab-paper": {
+        "role": "neutral",
+        "displayName": "Lab Paper",
+        "tonalRamp": [
+          "oklch(15% 0.008 260)",
+          "oklch(26% 0.008 260)",
+          "oklch(38% 0.008 260)",
+          "oklch(49% 0.008 260)",
+          "oklch(61% 0.008 260)",
+          "oklch(72% 0.008 260)",
+          "oklch(84% 0.008 260)",
+          "oklch(95% 0.008 260)"
+        ]
+      },
+      "carbon": {
+        "role": "neutral",
+        "displayName": "Carbon",
+        "tonalRamp": [
+          "oklch(15% 0.025 250)",
+          "oklch(26% 0.025 250)",
+          "oklch(38% 0.025 250)",
+          "oklch(49% 0.025 250)",
+          "oklch(61% 0.025 250)",
+          "oklch(72% 0.025 250)",
+          "oklch(84% 0.025 250)",
+          "oklch(95% 0.025 250)"
+        ]
+      },
+      "zcode-orange": {
+        "role": "secondary",
+        "displayName": "ZCode Orange",
+        "tonalRamp": [
+          "oklch(15% 0.17 43)",
+          "oklch(26% 0.17 43)",
+          "oklch(38% 0.17 43)",
+          "oklch(49% 0.17 43)",
+          "oklch(61% 0.17 43)",
+          "oklch(72% 0.17 43)",
+          "oklch(84% 0.17 43)",
+          "oklch(95% 0.17 43)"
+        ]
+      },
+      "deepseek-violet": {
+        "role": "secondary",
+        "displayName": "DeepSeek Violet",
+        "tonalRamp": [
+          "oklch(15% 0.17 286)",
+          "oklch(26% 0.17 286)",
+          "oklch(38% 0.17 286)",
+          "oklch(49% 0.17 286)",
+          "oklch(61% 0.17 286)",
+          "oklch(72% 0.17 286)",
+          "oklch(84% 0.17 286)",
+          "oklch(95% 0.17 286)"
+        ]
+      },
+      "codex-blue": {
+        "role": "primary",
+        "displayName": "Codex Blue",
+        "tonalRamp": [
+          "oklch(15% 0.19 263)",
+          "oklch(26% 0.19 263)",
+          "oklch(38% 0.19 263)",
+          "oklch(49% 0.19 263)",
+          "oklch(61% 0.19 263)",
+          "oklch(72% 0.19 263)",
+          "oklch(84% 0.19 263)",
+          "oklch(95% 0.19 263)"
+        ]
+      },
+      "ax-teal": {
+        "role": "secondary",
+        "displayName": "AX Teal",
+        "tonalRamp": [
+          "oklch(15% 0.12 184)",
+          "oklch(26% 0.12 184)",
+          "oklch(38% 0.12 184)",
+          "oklch(49% 0.12 184)",
+          "oklch(61% 0.12 184)",
+          "oklch(72% 0.12 184)",
+          "oklch(84% 0.12 184)",
+          "oklch(95% 0.12 184)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "tonalRamp": [
+          "oklch(15% 0.04 258)",
+          "oklch(26% 0.04 258)",
+          "oklch(38% 0.04 258)",
+          "oklch(49% 0.04 258)",
+          "oklch(61% 0.04 258)",
+          "oklch(72% 0.04 258)",
+          "oklch(84% 0.04 258)",
+          "oklch(95% 0.04 258)"
+        ]
+      },
+      "divider": {
+        "role": "neutral",
+        "displayName": "Divider",
+        "tonalRamp": [
+          "oklch(15% 0.015 258)",
+          "oklch(26% 0.015 258)",
+          "oklch(38% 0.015 258)",
+          "oklch(49% 0.015 258)",
+          "oklch(61% 0.015 258)",
+          "oklch(72% 0.015 258)",
+          "oklch(84% 0.015 258)",
+          "oklch(95% 0.015 258)"
+        ]
+      },
+      "reading-ink": {
+        "role": "neutral",
+        "displayName": "Reading Ink",
+        "tonalRamp": [
+          "oklch(15% 0.045 258)",
+          "oklch(26% 0.045 258)",
+          "oklch(38% 0.045 258)",
+          "oklch(49% 0.045 258)",
+          "oklch(61% 0.045 258)",
+          "oklch(72% 0.045 258)",
+          "oklch(84% 0.045 258)",
+          "oklch(95% 0.045 258)"
+        ]
+      },
+      "action-hover": {
+        "role": "primary",
+        "displayName": "Action Hover",
+        "tonalRamp": [
+          "oklch(15% 0.16 263)",
+          "oklch(26% 0.16 263)",
+          "oklch(38% 0.16 263)",
+          "oklch(49% 0.16 263)",
+          "oklch(61% 0.16 263)",
+          "oklch(72% 0.16 263)",
+          "oklch(84% 0.16 263)",
+          "oklch(95% 0.16 263)"
+        ]
+      },
+      "focus": {
+        "role": "primary",
+        "displayName": "Focus",
+        "tonalRamp": [
+          "oklch(15% 0.16 263)",
+          "oklch(26% 0.16 263)",
+          "oklch(38% 0.16 263)",
+          "oklch(49% 0.16 263)",
+          "oklch(61% 0.16 263)",
+          "oklch(72% 0.16 263)",
+          "oklch(84% 0.16 263)",
+          "oklch(95% 0.16 263)"
+        ]
+      },
+      "policy": {
+        "role": "secondary",
+        "displayName": "Policy",
+        "tonalRamp": [
+          "oklch(15% 0.13 52)",
+          "oklch(26% 0.13 52)",
+          "oklch(38% 0.13 52)",
+          "oklch(49% 0.13 52)",
+          "oklch(61% 0.13 52)",
+          "oklch(72% 0.13 52)",
+          "oklch(84% 0.13 52)",
+          "oklch(95% 0.13 52)"
+        ]
+      },
+      "evidence-bg": {
+        "role": "neutral",
+        "displayName": "Evidence Background",
+        "tonalRamp": [
+          "oklch(15% 0.015 258)",
+          "oklch(26% 0.015 258)",
+          "oklch(38% 0.015 258)",
+          "oklch(49% 0.015 258)",
+          "oklch(61% 0.015 258)",
+          "oklch(72% 0.015 258)",
+          "oklch(84% 0.015 258)",
+          "oklch(95% 0.015 258)"
+        ]
+      },
+      "evidence-ink": {
+        "role": "neutral",
+        "displayName": "Evidence Ink",
+        "tonalRamp": [
+          "oklch(15% 0.04 258)",
+          "oklch(26% 0.04 258)",
+          "oklch(38% 0.04 258)",
+          "oklch(49% 0.04 258)",
+          "oklch(61% 0.04 258)",
+          "oklch(72% 0.04 258)",
+          "oklch(84% 0.04 258)",
+          "oklch(95% 0.04 258)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Reference-page headings."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Learning-pane headings."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Diagram component names."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Introductory explanation."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Action controls."
+      },
+      "code": {
+        "displayName": "Code",
+        "purpose": "Source excerpts using Recursive MONO 1."
+      }
+    },
+    "shadows": [
+      {
+        "name": "node-stack",
+        "value": "0 7px 0 -1px #e0e7ef, 0 8px 0 0 #afbdd0, 0 13px 17px -11px #3a4d7250",
+        "purpose": "Structural depth under inspectable parts."
+      },
+      {
+        "name": "inspector",
+        "value": "0 8px 38px #2538562e",
+        "purpose": "Desktop details panel."
+      },
+      {
+        "name": "mobile-sheet",
+        "value": "0 -6px 35px #26384d38",
+        "purpose": "Mobile details sheet."
+      },
+      {
+        "name": "active-segment",
+        "value": "0 1px 3px #36465f18",
+        "purpose": "Selected overlay control."
+      }
+    ],
+    "motion": [
+      {
+        "name": "node-transition",
+        "value": "250ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Restrained hover and selection lift."
+      },
+      {
+        "name": "chapter-entry",
+        "value": "350ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "3px chapter-focus lift."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation: none; transition: none; scroll-behavior: auto",
+        "purpose": "Respect prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "760px"
+      },
+      {
+        "name": "compact-desktop",
+        "value": "1100px"
+      },
+      {
+        "name": "wide-desktop",
+        "value": "1600px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Advance through the guided lab.",
+      "html": "<button class=\"ds-primary\">Next step <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></button>",
+      "css": ".ds-primary{font-family:\"Recursive Variable\",\"Recursive Local\",sans-serif;display:inline-flex;align-items:center;gap:10px;min-height:43px;background:var(--blue,#2f62d6);color:#fff;border:1px solid var(--blue,#2f62d6);border-radius:7px;padding:11px 15px;font-size:.8125rem;font-weight:580;cursor:pointer}.ds-primary:hover{background:#214ead}.ds-primary:focus-visible{outline:3px solid var(--focus,#294fad);outline-offset:4px;}.ds-primary:disabled{opacity:.4;cursor:not-allowed}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Return to the previous learning step.",
+      "html": "<button class=\"ds-secondary\">Previous</button>",
+      "css": ".ds-secondary{font-family:\"Recursive Variable\",\"Recursive Local\",sans-serif;display:inline-flex;align-items:center;min-height:43px;background:#fff;color:#43536c;border:1px solid #cfdaea;border-radius:7px;padding:11px 15px;font-size:.8125rem;font-weight:580;cursor:pointer}.ds-secondary:hover:not(:disabled){background:#f0f4fb}.ds-secondary:focus-visible{outline:3px solid var(--focus,#294fad);outline-offset:4px;}.ds-secondary:disabled{opacity:.4;cursor:not-allowed}"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "search-field",
+      "description": "Search pinned source records.",
+      "html": "<label class=\"ds-search\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"m16 16 5 5\"/></svg><input aria-label=\"Search sources\" placeholder=\"Search sources\" /></label>",
+      "css": ".ds-search{font-family:\"Recursive Variable\",\"Recursive Local\",sans-serif;display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #bdccdf;border-radius:8px;padding:12px 15px;color:#54677f}.ds-search input{font-family:\"Recursive Variable\",\"Recursive Local\",sans-serif;border:0;outline:none;width:100%;background:none;font-size:.875rem;color:var(--ink,#17212b);caret-color:var(--blue,#2f62d6)}.ds-search:focus-within{outline:3px solid #b7cafa;outline-offset:2px}"
+    },
+    {
+      "name": "Main Navigation",
+      "kind": "nav",
+      "refersTo": "main-navigation",
+      "description": "Text navigation with an explicit current-page underline.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Main navigation\"><a href=\"#/learn/landscape\" aria-current=\"page\">Learn</a><a href=\"#/compare\">Compare</a><a href=\"#/evolution\">Evolve</a><a href=\"#/sources\">Sources</a></nav>",
+      "css": ".ds-nav{font-family:\"Recursive Variable\",\"Recursive Local\",sans-serif;display:flex;gap:31px;min-height:72px;background:#fff;flex-wrap:wrap}.ds-nav a{display:flex;align-items:center;color:#4a5870;text-decoration:none;font-size:.9375rem;border-bottom:3px solid transparent;padding-top:3px}.ds-nav a[aria-current]{color:#244fac;border-color:var(--blue,#2f62d6);font-weight:650}.ds-nav a:hover{text-decoration:underline;text-underline-offset:4px}.ds-nav a:focus-visible{outline:3px solid var(--focus,#294fad);outline-offset:4px;}"
+    },
+    {
+      "name": "Evidence Tag",
+      "kind": "chip",
+      "refersTo": "evidence-tag",
+      "description": "A noninteractive factual-status label.",
+      "html": "<span class=\"ds-evidence\">documented</span>",
+      "css": ".ds-evidence{font-family:\"Recursive Variable\",\"Recursive Local\",sans-serif;font-size:.625rem;font-weight:600;color:#4d6179;padding:3px 7px;background:#edf2f8;border-radius:4px;display:inline-block;line-height:1.5;text-transform:capitalize}"
+    },
+    {
+      "name": "Diagram Node",
+      "kind": "card",
+      "refersTo": "diagram-node",
+      "description": "An inspectable part with structural depth, keyboard focus, and selected state.",
+      "html": "<button class=\"ds-node\" aria-label=\"Inspect Agent runtime\" aria-pressed=\"false\"><svg width=\"27\" height=\"27\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" aria-hidden=\"true\"><path d=\"m12 3 10 5-10 5L2 8l10-5Zm-10 9 10 5 10-5M2 16l10 5 10-5\"/></svg><span><strong>Agent runtime</strong><small>Context · tools · state</small></span></button>",
+      "css": ".ds-node{font-family:\"Recursive Variable\",\"Recursive Local\",sans-serif;display:flex;align-items:center;gap:15px;min-height:78px;padding:17px 19px;border:1px solid #a9b9ce;border-radius:10px;background:#fff;color:var(--ink,#17212b);text-align:left;box-shadow:0 7px 0 -1px #e0e7ef,0 8px 0 0 #afbdd0,0 13px 17px -11px #3a4d7250;transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s cubic-bezier(.16,1,.3,1);cursor:pointer}.ds-node svg{color:var(--blue,#2f62d6)}.ds-node strong{display:block;font-size:1rem;line-height:1.25;letter-spacing:-.03em;font-weight:690}.ds-node small{display:block;font-size:.6875rem;margin-top:5px;color:#50627d;line-height:1.4}.ds-node:hover,.ds-node:focus-visible{transform:translateY(-6px)}.ds-node:focus-visible{outline:3px solid var(--focus,#294fad);outline-offset:4px;}.ds-node[aria-pressed=true]{transform:translateY(-9px);border:2px solid var(--blue,#2f62d6);background:color-mix(in srgb,var(--blue,#2f62d6) 7%,white)}@media(prefers-reduced-motion:reduce){.ds-node{transition:none}}"
+    },
+    {
+      "name": "Overlay Switch",
+      "kind": "custom",
+      "refersTo": "overlay-switch",
+      "description": "Architecture and Safety are explicit mutually exclusive display states.",
+      "html": "<div class=\"ds-switch\" aria-label=\"Diagram overlay\"><button aria-pressed=\"true\">Architecture</button><button aria-pressed=\"false\">Safety</button></div>",
+      "css": ".ds-switch{font-family:\"Recursive Variable\",\"Recursive Local\",sans-serif;display:flex;flex-wrap:wrap;background:#eaf0f7;border:1px solid #dce3ed;border-radius:7px;padding:3px;width:fit-content}.ds-switch button{font-family:\"Recursive Variable\",\"Recursive Local\",sans-serif;background:transparent;border:0;color:#4c5e77;font-size:.75rem;border-radius:5px;padding:7px 13px;cursor:pointer}.ds-switch button[aria-pressed=true]{background:#fff;color:var(--ink,#17212b);box-shadow:0 1px 3px #36465f18;font-weight:650}.ds-switch button:focus-visible{outline:3px solid var(--focus,#294fad);outline-offset:4px;}"
+    },
+    {
+      "name": "Inspector",
+      "kind": "custom",
+      "refersTo": "inspector",
+      "description": "Source-backed detail surface; production code supplies mobile modal focus management.",
+      "html": "<aside class=\"ds-inspector\" aria-label=\"Agent runtime details\"><header class=\"ds-inspector-head\"><div><span class=\"ds-inspector-tag\">documented</span><h2>Agent runtime</h2></div><button aria-label=\"Close component details\">×</button></header><div class=\"ds-inspector-body\"><h3>Responsibility</h3><p>Owns the coding loop.</p><a href=\"#/sources\">Source trail</a></div></aside>",
+      "css": ".ds-inspector{font-family:\"Recursive Variable\",\"Recursive Local\",sans-serif;width:350px;max-width:100%;background:#fff;color:var(--ink,#17212b);box-shadow:0 8px 38px #2538562e;border-radius:13px;overflow:hidden}.ds-inspector-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:23px 22px 18px;border-bottom:1px solid var(--line,#dce3ed)}.ds-inspector-tag{font-size:.625rem;font-weight:600;color:#4d6179;background:#edf2f8;border-radius:4px;padding:3px 7px}.ds-inspector h2{font-size:1.4375rem;line-height:1.25;letter-spacing:-.04em;margin:8px 0 0}.ds-inspector button{font-family:\"Recursive Variable\",\"Recursive Local\",sans-serif;background:#f2f5f9;border:0;border-radius:6px;min-width:32px;height:32px;font-size:1.25rem;cursor:pointer}.ds-inspector-body{padding:20px 22px}.ds-inspector h3{font-size:.75rem;font-weight:700;color:#53617b;margin:0 0 8px}.ds-inspector p{font-size:.8125rem;line-height:1.7;margin:0 0 20px}.ds-inspector a{font-size:.8125rem;color:var(--blue,#2f62d6);text-underline-offset:4px}.ds-inspector a:hover{text-decoration-thickness:2px}.ds-inspector button:focus-visible,.ds-inspector a:focus-visible{outline:3px solid var(--focus,#294fad);outline-offset:4px;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Exploded Systems Workbench",
+    "overview": "The Atlas is a calm, precise workbench for understanding software boundaries. Lab Paper and Carbon support countable, lifted architecture parts; Recursive connects compact interface labels, explanation, and source code without changing visual voice. The diagram is an object to inspect, with enough depth to reveal selection and grouping.\n\nThe material is HTML and SVG: accessible controls, visible edges, restrained layers, and source evidence close to the explanation. The current learning surface follows the approved composition A for guided labs and composition B for the opening landscape. That page arrangement is recorded in the surface brief; the durable system is the workbench, its palette, typography, and meaningful depth. No raster assets ship.",
+    "keyCharacteristics": [
+      "Manipulable diagrams with readable, keyboard-operable parts.",
+      "Pale working surfaces, dark text, and four stable project colors.",
+      "Restrained structural depth and brief lift interactions.",
+      "Evidence labels and visible distinctions between policy and containment."
+    ],
+    "rules": [
+      {
+        "name": "The Identity Rule",
+        "body": "Preserve the four exact project colors and their names; do not exchange them to suit a particular screen.",
+        "section": "colors"
+      },
+      {
+        "name": "The Redundant Cue Rule",
+        "body": "Color accompanies names, icons, labels, strokes, and state attributes. Safety mode reduces unrelated surface depth while keeping node text at full opacity.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Family Rule",
+        "body": "Use Recursive's axes and weight range to separate prose, controls, and code before introducing another typeface.",
+        "section": "typography"
+      },
+      {
+        "name": "The Meaningful Lift Rule",
+        "body": "Hover and keyboard focus lift nodes by 6px; selection lifts them by 9px. Chapter focus enters with a 3px lift. Do not apply the diagram's stacked depth to every reading container.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do preserve the exact named palette and self-hosted Recursive typography.",
+      "Do use HTML buttons and SVG edges for inspectable architecture.",
+      "Do keep project identity, evidence status, and safety concepts readable without color alone.",
+      "Do preserve stage-first mobile reading and the modal inspector's focus behavior.",
+      "Do retain large-text reflow with textual connections and reduced-motion support.",
+      "Do keep source evidence close to the explanation it supports."
+    ],
+    "donts": [
+      "Don't replace interactive diagrams with raster mockups or WebGL-only content.",
+      "Don't lower text opacity to de-emphasize unrelated Safety nodes.",
+      "Don't use lift, stacking, or continuous motion as decoration on reading surfaces.",
+      "Don't shrink an entire diagram to compensate for enlarged text.",
+      "Don't turn the landscape's conceptual placement into a claim of tested integration."
+    ]
+  }
+}

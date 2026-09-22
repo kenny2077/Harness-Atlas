@@ -1,0 +1,339 @@
+{
+  "id": "deepseek",
+  "name": "DeepSeek Harness",
+  "shortName": "DeepSeek",
+  "color": "#6D5BD0",
+  "language": "TypeScript",
+  "category": "Coding harness",
+  "summary": {
+    "text": "Cordis composes tools, providers, sessions and even the agent loop as plugins.",
+    "sources": ["d-architecture", "d-cordis"],
+    "evidence": "documented"
+  },
+  "maturity": {
+    "text": "Developer preview: 0.1.6-alpha.2 at this snapshot. The project explicitly warns of breaking changes and unaudited safety.",
+    "sources": ["d-safety"],
+    "evidence": "documented"
+  },
+  "advantages": [
+    {
+      "text": "The replaceable loop and typed service seams make agent composition directly inspectable.",
+      "sources": ["d-cordis", "d-loop"],
+      "evidence": "inferred"
+    },
+    {
+      "text": "Append-only sessions provide a clear relationship between logged events and model context.",
+      "sources": ["d-sessions"],
+      "evidence": "inferred"
+    }
+  ],
+  "tradeoffs": [
+    {
+      "text": "Profiles, bundles, presets and plugin lifecycles add concepts for a new contributor to learn.",
+      "sources": ["d-bundles", "d-plugin"],
+      "evidence": "inferred"
+    },
+    {
+      "text": "External host plugins run in-process with host-user authority, outside the workspace sandbox.",
+      "sources": ["d-plugin", "d-safety"],
+      "evidence": "documented"
+    }
+  ],
+  "taskFit": [
+    {
+      "text": "Research and custom harnesses that replace tools, providers, persistence or the loop itself.",
+      "sources": ["d-architecture"],
+      "evidence": "inferred"
+    },
+    {
+      "text": "Inspecting long-running work across web, headless and programmatic interfaces.",
+      "sources": ["d-sessions", "d-clients"],
+      "evidence": "inferred"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "profile",
+      "label": "Profile + bundles",
+      "subtitle": "Choose the capability set",
+      "kind": "client",
+      "x": 250,
+      "y": 70,
+      "width": 190,
+      "sourceIds": ["d-bundles"],
+      "responsibility": {
+        "text": "Composes ordered patches for web, headless, SDK or ACP environments.",
+        "sources": ["d-bundles"],
+        "evidence": "documented"
+      },
+      "inputs": "Base bundles and user overrides",
+      "outputs": "A configured plugin tree",
+      "extension": "Profiles can layer additional bundles and patches.",
+      "failureMode": "Changing a profile can alter which services and tools are available."
+    },
+    {
+      "id": "clients",
+      "label": "Web / SDK / ACP",
+      "subtitle": "User and protocol surfaces",
+      "kind": "client",
+      "x": 750,
+      "y": 70,
+      "width": 190,
+      "sourceIds": ["d-clients", "d-bundles"],
+      "responsibility": {
+        "text": "Presents runtime events through browser, headless and programmatic clients.",
+        "sources": ["d-clients", "d-bundles"],
+        "evidence": "documented"
+      },
+      "inputs": "User requests or protocol messages",
+      "outputs": "Agent requests and rendered events",
+      "extension": "Client capabilities are also plugin-composed.",
+      "failureMode": "A UI feature is not automatically present in every runtime profile."
+    },
+    {
+      "id": "cordis",
+      "label": "Cordis context",
+      "subtitle": "Services + typed events",
+      "kind": "core",
+      "x": 500,
+      "y": 215,
+      "width": 285,
+      "sourceIds": ["d-cordis"],
+      "responsibility": {
+        "text": "Hosts a plugin tree with typed services, events and reversible registrations.",
+        "sources": ["d-cordis"],
+        "evidence": "documented"
+      },
+      "inputs": "Plugins, service definitions and configuration",
+      "outputs": "A composed running agent system",
+      "extension": "Even central services can be supplied by plugins.",
+      "failureMode": "Service dependencies and plugin unloading must be handled consistently."
+    },
+    {
+      "id": "loop",
+      "label": "Agent-loop plugin",
+      "subtitle": "Prompt → sample → tools",
+      "kind": "core",
+      "x": 185,
+      "y": 375,
+      "width": 190,
+      "sourceIds": ["d-loop", "d-architecture"],
+      "responsibility": {
+        "text": "Claims input, prepares the prompt, runs interception events and continues sampling while more work remains.",
+        "sources": ["d-loop", "d-architecture"],
+        "evidence": "documented"
+      },
+      "inputs": "Queued input and session-derived history",
+      "outputs": "Model calls and turn events",
+      "extension": "The loop itself can be replaced.",
+      "failureMode": "Interceptors can change or reject a step; event ordering matters."
+    },
+    {
+      "id": "tools",
+      "label": "Guarded tool pipeline",
+      "subtitle": "Pre → execute → post",
+      "kind": "tool",
+      "x": 520,
+      "y": 375,
+      "width": 190,
+      "sourceIds": ["d-architecture"],
+      "responsibility": {
+        "text": "Routes calls through typed interception around execution. Parallel-safe tools share a bounded pool; exclusive calls form barriers.",
+        "sources": ["d-architecture"],
+        "evidence": "documented"
+      },
+      "inputs": "Tool call and execution context",
+      "outputs": "Tool result and lifecycle events",
+      "extension": "Tools and before/after handlers are plugins.",
+      "failureMode": "Incorrect concurrency declarations can change execution ordering."
+    },
+    {
+      "id": "state",
+      "label": "Session event log",
+      "subtitle": "Model-visible means logged",
+      "kind": "state",
+      "x": 820,
+      "y": 375,
+      "width": 190,
+      "sourceIds": ["d-sessions"],
+      "responsibility": {
+        "text": "Uses append-only session events as the source for model history. Streaming UI chunks and settled durable records are distinct.",
+        "sources": ["d-sessions"],
+        "evidence": "documented"
+      },
+      "inputs": "Committed request, response and tool facts",
+      "outputs": "History projections and resumable sessions",
+      "extension": "Persistence and projection services are extensible.",
+      "failureMode": "Failed and cancelled attempts must settle coherently in the log."
+    },
+    {
+      "id": "extensions",
+      "label": "Native plugins + bridges",
+      "subtitle": "Hooks · MCP · skills",
+      "kind": "extension",
+      "x": 185,
+      "y": 560,
+      "width": 190,
+      "sourceIds": ["d-plugin", "d-hooks", "d-bridge"],
+      "responsibility": {
+        "text": "Adds native capabilities and compatibility bridges. The Codex hook bridge supports a documented subset.",
+        "sources": ["d-plugin", "d-hooks", "d-bridge"],
+        "evidence": "documented"
+      },
+      "inputs": "External bundles and existing hook configuration",
+      "outputs": "Capabilities registered in the context",
+      "extension": "Live plugin activation, preset composition and typed events.",
+      "failureMode": "An in-process plugin is not contained by the workspace tool sandbox."
+    },
+    {
+      "id": "policy",
+      "label": "Interaction + approval",
+      "subtitle": "Pause for a decision",
+      "kind": "policy",
+      "x": 520,
+      "y": 550,
+      "width": 190,
+      "sourceIds": ["d-sandbox", "d-safety"],
+      "responsibility": {
+        "text": "Coordinates permission decisions and escalation around tool execution.",
+        "sources": ["d-sandbox", "d-safety"],
+        "evidence": "documented"
+      },
+      "inputs": "Tool operation and sandbox denial",
+      "outputs": "Proceed, deny or request escalation",
+      "extension": "Interaction and sandbox services form separate seams.",
+      "failureMode": "An approval does not prove that every operation is isolated."
+    },
+    {
+      "id": "sandbox",
+      "label": "Sandbox backend",
+      "subtitle": "Platform-specific execution",
+      "kind": "boundary",
+      "x": 520,
+      "y": 705,
+      "width": 300,
+      "sourceIds": ["d-sandbox", "d-safety"],
+      "responsibility": {
+        "text": "Provides local Linux, macOS and Windows execution backends with configured access modes.",
+        "sources": ["d-sandbox", "d-safety"],
+        "evidence": "documented"
+      },
+      "inputs": "An execution request and access mode",
+      "outputs": "Tool output under the selected restrictions",
+      "extension": "Backends are replaceable capabilities.",
+      "failureMode": "The project warns that its preview controls do not guarantee isolation."
+    }
+  ],
+  "edges": [
+    {
+      "id": "profile-cordis",
+      "from": "profile",
+      "to": "cordis",
+      "label": "compose",
+      "kind": "composition"
+    },
+    {
+      "id": "clients-cordis",
+      "from": "clients",
+      "to": "cordis",
+      "label": "request",
+      "kind": "request"
+    },
+    {
+      "id": "cordis-loop",
+      "from": "cordis",
+      "to": "loop",
+      "label": "services",
+      "kind": "request"
+    },
+    {
+      "id": "loop-tools",
+      "from": "loop",
+      "to": "tools",
+      "label": "tool call",
+      "kind": "request"
+    },
+    {
+      "id": "tools-state",
+      "from": "tools",
+      "to": "state",
+      "label": "record",
+      "kind": "state"
+    },
+    {
+      "id": "tools-policy",
+      "from": "tools",
+      "to": "policy",
+      "label": "authorize",
+      "kind": "request"
+    },
+    {
+      "id": "policy-sandbox",
+      "from": "policy",
+      "to": "sandbox",
+      "label": "execute",
+      "kind": "request"
+    },
+    {
+      "id": "sandbox-loop",
+      "from": "sandbox",
+      "to": "loop",
+      "label": "tool result",
+      "kind": "result"
+    },
+    {
+      "id": "extensions-cordis",
+      "from": "extensions",
+      "to": "cordis",
+      "label": "register",
+      "kind": "composition"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "loop",
+      "title": "A composable core",
+      "heading": "The loop is a plugin",
+      "body": "Start with the Cordis context: services and typed events compose the runtime.",
+      "focus": ["cordis", "loop"],
+      "takeaway": "The central loop is one replaceable capability in the tree.",
+      "sourceIds": ["d-cordis", "d-loop"]
+    },
+    {
+      "id": "tools",
+      "title": "A guarded pipeline",
+      "heading": "Where plugins intervene",
+      "body": "Trace a call through pre-execution, execution and post-execution events.",
+      "focus": ["loop", "tools", "policy"],
+      "takeaway": "An extension can intercept behavior without editing the caller.",
+      "sourceIds": ["d-architecture"]
+    },
+    {
+      "id": "boundary",
+      "title": "Execution boundary",
+      "heading": "Two trust boundaries",
+      "body": "Tool sandboxing and host plugin execution have different authority.",
+      "focus": ["extensions", "policy", "sandbox"],
+      "takeaway": "Installed host plugins execute outside the workspace tool sandbox.",
+      "sourceIds": ["d-plugin", "d-safety"]
+    },
+    {
+      "id": "memory",
+      "title": "The event log",
+      "heading": "History is a projection",
+      "body": "The durable log supplies model-visible context; transient UI streaming is a separate concern.",
+      "focus": ["state", "loop"],
+      "takeaway": "Persist facts, then derive the context that a model sees.",
+      "sourceIds": ["d-sessions"]
+    },
+    {
+      "id": "extensions",
+      "title": "Profiles and bridges",
+      "heading": "Compose a different agent",
+      "body": "Inspect bundle layering and compatibility with existing Codex hook files.",
+      "focus": ["profile", "extensions", "cordis"],
+      "takeaway": "Interoperability is observable evidence. It does not establish copying.",
+      "sourceIds": ["d-bundles", "d-bridge"]
+    }
+  ]
+}
